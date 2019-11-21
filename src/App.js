@@ -1,17 +1,14 @@
-import React, { Component } from 'react';
-import NavigationRouter from './screens/NavigationRouter';
-
+import React, { Component } from "react";
+import NavigationRouter from "./NavigationRouter";
 
 class App extends Component {
-  render(){
+  render() {
     return (
       <div className="App">
-        <NavigationRouter/>
-        
+        <NavigationRouter />
       </div>
     );
   }
 }
-
 
 export default App;

@@ -1,14 +1,23 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 
-class FavoritesScreen extends React.Component {
-  state = {
-  
-  };
-    render() {
-      return (
-        <div>favorites</div>
-      )}
+import styled from "styled-components";
+
+class FavoritesScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    this.props.history.listen(() => {
+      // view new URL
+      console.log("New URL", this.props.history.location.pathname);
+    });
+  }
+  render() {
+    return <div>favorites</div>;
+  }
 }
 
-export default FavoritesScreen;
+export default withRouter(FavoritesScreen);
