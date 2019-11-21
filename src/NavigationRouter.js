@@ -14,18 +14,16 @@ class NavigationRouter extends Component {
     return (
       <Bar>
         <BrowserRouter>
-          <div>
-            <nav style={{ textAlign: "left" }}>
-              <NavUl>
-                <Tab>
-                  <Link to="/">home</Link>
-                </Tab>
-                <Tab>
-                  <Link to="/favorites">favorites</Link>
-                </Tab>
-              </NavUl>
-            </nav>
-          </div>
+          <nav>
+            <NavUl>
+              <Tab>
+                <Link to="/">HOME</Link>
+              </Tab>
+              <Tab>
+                <Link to="/favorites">FAVORITES</Link>
+              </Tab>
+            </NavUl>
+          </nav>
           <Switch>
             <Route exact path="/" component={MainScreen}></Route>
             <Route path="/favorites" component={FavoritesScreen}></Route>
@@ -40,15 +38,16 @@ class NavigationRouter extends Component {
 export default NavigationRouter;
 
 const Bar = styled.div`
-  background-color: rgb(83, 71, 103);
+  background-color: rgb(73, 94, 141);
   max-height: 55px;
   width: 100%;
 `;
 
 const NavUl = styled.ul`
   padding: 5px;
-  font-size: 15px;
+  font-size: 17px;
   margin-left: 1rem;
+  margin-top: 0rem;
   @media (max-width: 768px) {
     margin-left: 0;
   }
