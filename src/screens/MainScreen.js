@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import DailyWeather from '../components/DailyWeather';
 
 class MainScreen extends React.Component {
   state = {
   
   };
+
+
+  
     render() {
       return (
-        <div>main</div>
+        <div>main
+          <DailyWeather/>
+        </div>
       )}
 }
 
