@@ -8,11 +8,11 @@ const toggleTempType = temp => {
 };
 
 const DailyWeatherCard = ({ weatherData, convertedTemp }) => {
-  console.log(convertedTemp);
-
   let dailyForecast = weatherData.DailyForecasts.map(function(item, i) {
     return (
       <Card key={i}>
+        <span> {item.Date}</span>
+        <WeatherDescription>{item.Day.IconPhrase}</WeatherDescription>
         <WeatherIcon
           src={
             "https://www.accuweather.com/images/weathericons/" +
@@ -44,7 +44,7 @@ const DailyWeatherCard = ({ weatherData, convertedTemp }) => {
 export default DailyWeatherCard;
 
 const Card = styled.div`
-  background-color: rgb(33, 48, 81);
+  background-color: rgba(33, 48, 81, 0.4);
   color: #ffffff;
   width: 200px;
   height: 300px;
@@ -63,10 +63,9 @@ const WeatherCardsRow = styled.div`
   display: inline-flex;
   flex-direction: row;
   align-items: center;
-  width: 85%;
+  width: 94%;
   justify-content: space-evenly;
   margin-top: 3rem;
-  margin-left: 5rem;
 `;
 
 const Temp = styled.span`
@@ -87,4 +86,8 @@ const DataRow = styled.div`
   justify-content: space-between;
   margin-top: 0.3rem;
   padding: 8px;
+`;
+
+const WeatherDescription = styled.span`
+  color: #ec9e09;
 `;

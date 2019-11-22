@@ -79,7 +79,7 @@ const Tab = styled.li`
 `;
 
 const Bar = styled.nav`
-  background-color: rgb(73, 94, 141);
+  background-color: rgb(209, 168, 16);
   max-height: 55px;
   width: 100%;
 `;
