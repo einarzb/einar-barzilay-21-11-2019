@@ -47,11 +47,17 @@ const Card = styled.div`
   background-color: rgba(33, 48, 81, 0.4);
   color: #ffffff;
   width: 200px;
-  height: 300px;
+  height: 220px;
   display: inline-flex;
   flex-direction: column;
   border-radius: 0.5em;
   padding: 0.5rem;
+  margin: 0 0 1rem 0;
+  @media (max-width: 768px) {
+    width: 85%;
+    margin: 1rem 0;
+    height: auto;
+  }
 `;
 
 const WeatherIcon = styled.img`
@@ -66,6 +72,12 @@ const WeatherCardsRow = styled.div`
   width: 94%;
   justify-content: space-evenly;
   margin-top: 3rem;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    width: 98%;
+  }
 `;
 
 const Temp = styled.span`

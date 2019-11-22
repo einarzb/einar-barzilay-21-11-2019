@@ -42,6 +42,11 @@ const Card = styled.div`
   height: 300px;
   border-radius: 0.5em;
   padding: 0.5rem;
+  @media (max-width: 768px) {
+    width: 85%;
+    margin: 0;
+    height: auto;
+  }
 `;
 
 const WeatherIcon = styled.img`
@@ -56,7 +61,10 @@ const CurrentWeather = styled.div`
   width: 100%;
   justify-content: end;
   margin-top: 1rem;
-  padding: 0rem 2rem;
+  padding: 0rem;
+  @media (max-width: 768px) {
+    padding: 0;
+  }
 `;
 
 const Temp = styled.span`

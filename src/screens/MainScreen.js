@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import DailyWeather from "../components/DailyWeather";
 import CurrentWeather from "../components/CurrentWeather";
+import SearchCity from "../components/SearchCity";
 
 class MainScreen extends React.Component {
   state = {};
@@ -9,6 +10,7 @@ class MainScreen extends React.Component {
   render() {
     return (
       <Wrapper>
+        <SearchCity />
         <CurrentWeather />
         <DailyWeather />
       </Wrapper>
