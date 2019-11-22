@@ -7,12 +7,17 @@ class MainScreen extends React.Component {
 
   render() {
     return (
-      <div>
-        
+      <Wrapper>
         <DailyWeather />
-      </div>
+      </Wrapper>
     );
   }
 }
 
 export default MainScreen;
+
+export const Wrapper = styled.div`
+  height: 100vh;
+  background-color: #282525;
+  margin-top: -1.1rem;
+`;

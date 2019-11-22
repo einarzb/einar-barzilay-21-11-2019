@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import DailyWeatherCard from "./DailyWeatherCard";
 import styled from "styled-components";
 
 class DailyWeather extends React.Component {
@@ -27,25 +28,20 @@ class DailyWeather extends React.Component {
     let { loading, weather } = this.state;
     return (
       <div>
-        { 
-          loading 
-          ?  
+        {loading ? (
           <div> loading....</div>
-           : 
-          <div>
-            {weather.Headline.Category}
-            <img
-              src={
-                "https://www.accuweather.com/images/weathericons/" +
-                weather.DailyForecasts[0].Day.Icon +
-                ".svg"
-              }
-            />
-          </div>
-        }
+        ) : (
+          <Wrapper>
+            <DailyWeatherCard weatherData={weather}> </DailyWeatherCard>
+          </Wrapper>
+        )}
       </div>
     );
   }
 }
 
 export default DailyWeather;
+
+export const Wrapper = styled.div`
+  height: 100vh;
+`;
