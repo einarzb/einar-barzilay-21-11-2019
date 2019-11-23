@@ -7,12 +7,9 @@ const toggleTempType = temp => {
   console.log(convertedTemp);
 };
 const DateParser = date => {
-  console.log("im here");
   let str = date.date;
   let res = str.slice(5, 10);
   date = res;
-  console.log(res);
-
   return res;
 };
 const DailyWeatherCard = ({ weatherData, convertedTemp, str }) => {

@@ -1,28 +1,20 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-class SearchCity extends Component {
-  state = {
-    query: ""
-  };
+function SearchCity() {
+  const [city, setCity] = useState(""); //set inital state
+  useEffect(() => console.log(city), [city]);
+  const changeValue = event => setCity(event.target.value);
 
-  handleInputChange = () => {
-    this.setState({
-      query: this.search.value
-    });
-  };
-
-  render() {
-    return (
-      <form>
-        <SearchBar
-          placeholder="Search for..."
-          ref={input => (this.search = input)}
-          onChange={this.handleInputChange}
-        />
-      </form>
-    );
-  }
+  return (
+    <form>
+      <SearchBar
+        placeholder=" Get the weather of..."
+        value={city}
+        onChange={changeValue}
+      />
+    </form>
+  );
 }
 
 export default SearchCity;
