@@ -63,7 +63,6 @@ export default CurrentWeather;
 export const Wrapper = styled.div`
   padding: 0 1rem;
   margin-left: 2rem;
-
   & h2 {
     color: #ffffff;
     margin-bottom: 0;

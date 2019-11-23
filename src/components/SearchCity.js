@@ -40,7 +40,7 @@ const SearchBar = styled.input`
   padding: 0px 0rem 0 1rem;
   @media (max-width: 768px) {
     padding: 0 0 0 10px;
-    width: 85%;
+    width: 80%;
     height: 40px;
   }
 `;

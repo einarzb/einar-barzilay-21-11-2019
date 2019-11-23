@@ -6,12 +6,20 @@ const toggleTempType = temp => {
   let convertedTemp = Math.round((temp - 32) / 1.8);
   console.log(convertedTemp);
 };
+const DateParser = date => {
+  console.log("im here");
+  let str = date.date;
+  let res = str.slice(5, 10);
+  date = res;
+  console.log(res);
 
-const DailyWeatherCard = ({ weatherData, convertedTemp }) => {
+  return res;
+};
+const DailyWeatherCard = ({ weatherData, convertedTemp, str }) => {
   let dailyForecast = weatherData.DailyForecasts.map(function(item, i) {
     return (
       <Card key={i}>
-        <span> {item.Date}</span>
+        <DateParser date={item.Date}></DateParser>
         <WeatherDescription>{item.Day.IconPhrase}</WeatherDescription>
         <WeatherIcon
           src={
@@ -54,7 +62,7 @@ const Card = styled.div`
   padding: 0.5rem;
   margin: 0 0 1rem 0;
   @media (max-width: 768px) {
-    width: 85%;
+    width: 89%;
     margin: 1rem 0;
     height: auto;
   }
@@ -69,14 +77,14 @@ const WeatherCardsRow = styled.div`
   display: inline-flex;
   flex-direction: row;
   align-items: center;
-  width: 94%;
-  justify-content: space-evenly;
-  margin-top: 3rem;
+  width: 97%;
+  justify-content: space-between;
+  margin-top: 1rem;
   @media (max-width: 768px) {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 2rem;
-    width: 98%;
+    margin-top: 0rem;
+    width: 100%;
   }
 `;
 

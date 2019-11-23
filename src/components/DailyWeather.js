@@ -32,6 +32,7 @@ class DailyWeather extends React.Component {
           <div> loading....</div>
         ) : (
           <Wrapper>
+            <h2>5 days forecast</h2>
             <DailyWeatherCard weatherData={weather}> </DailyWeatherCard>
           </Wrapper>
         )}
@@ -42,4 +43,14 @@ class DailyWeather extends React.Component {
 
 export default DailyWeather;
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+  padding: 0 1rem;
+  margin-left: 2rem;
+  & h2 {
+    color: #ffffff;
+    margin-bottom: 0;
+  }
+  @media (max-width: 768px) {
+    margin-left: 1rem;
+  }
+`;
