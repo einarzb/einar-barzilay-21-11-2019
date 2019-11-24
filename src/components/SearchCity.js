@@ -77,31 +77,11 @@ function SearchCity() {
         value={query}
         onChange={changeValue}
       />
-      {isLoading ? (
-        <div>Loading.....</div>
+      {isLoading || data.length < 1 ? (
+        <div></div>
       ) : (
         <CitiesFetched citiesArr={data}></CitiesFetched>
       )}
-      {/**
-        <span>
-          
-          <ul>
-            {data.map(item => (
-              <li key={item.Key}>
-                <a href="#">{item.LocalizedName}</a>
-              </li>
-            ))}
-          </ul>
-        </span>
-      <CitiesFetched citiesArr={data.hits}></CitiesFetched>
-           <ul>
-          {data.hits.map(item => (
-            <li key={item.Key}>
-              <a href="#">{item.Key}</a>
-            </li>
-          ))}
-        </ul>
-       */}
     </Fragment>
   );
 }
