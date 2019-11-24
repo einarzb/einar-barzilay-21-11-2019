@@ -14,7 +14,7 @@ class DailyWeather extends React.Component {
 
   fetchDailyWeatherApi = () => {
     let dailyWeatherApi =
-      "http://dataservice.accuweather.com/forecasts/v1/daily/5day/215793?apikey=3NhsptgUxfS7Y2mMnq04QWhMUsfyQYg0";
+      "http://dataservice.accuweather.com/forecasts/v1/daily/5day/215793?apikey=2OxIxAAbVtWlSTBVlvTONG40GmdTEkAas";
 
     fetch(dailyWeatherApi)
       .then(res => res.json())

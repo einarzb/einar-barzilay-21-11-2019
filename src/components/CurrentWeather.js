@@ -17,7 +17,7 @@ class CurrentWeather extends Component {
 
   fetchLocation = () => {
     let location =
-      "http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=3NhsptgUxfS7Y2mMnq04QWhMUsfyQYg0&q=tel-aviv";
+      "http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=2OxIxAAbVtWlSTBVlvTONG40GmdTEkAa&q=tel-aviv";
     fetch(location)
       .then(res => res.json())
       .then(json => this.setState({ city: json[0].LocalizedName }))
@@ -26,7 +26,7 @@ class CurrentWeather extends Component {
 
   fetchCurrentWeatherApi = () => {
     let currentWeatherApi =
-      "http://dataservice.accuweather.com/currentconditions/v1/215793?apikey=3NhsptgUxfS7Y2mMnq04QWhMUsfyQYg0&details=true";
+      "http://dataservice.accuweather.com/currentconditions/v1/215793?apikey=2OxIxAAbVtWlSTBVlvTONG40GmdTEkAa&details=true";
     fetch(currentWeatherApi)
       .then(res => res.json())
       .then(json =>
