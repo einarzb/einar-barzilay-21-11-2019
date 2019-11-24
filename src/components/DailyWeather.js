@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import DailyWeatherCard from "./DailyWeatherCard";
 import styled from "styled-components";
 
-class DailyWeather extends React.Component {
+class DailyWeather extends Component {
   state = {
     loading: true,
     weather: null
@@ -27,7 +27,7 @@ class DailyWeather extends React.Component {
   render() {
     let { loading, weather } = this.state;
     return (
-      <div>
+      <Fragment>
         {loading ? (
           <div> loading....</div>
         ) : (
@@ -36,7 +36,7 @@ class DailyWeather extends React.Component {
             <DailyWeatherCard weatherData={weather}> </DailyWeatherCard>
           </Wrapper>
         )}
-      </div>
+      </Fragment>
     );
   }
 }

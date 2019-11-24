@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import CurrentWeatherCard from "./CurrentWeatherCard";
 import styled from "styled-components";
-import { tsThisType } from "@babel/types";
 
 class CurrentWeather extends Component {
   state = {
@@ -42,7 +41,7 @@ class CurrentWeather extends Component {
     let { loading, currentWeather, city } = this.state;
 
     return (
-      <div>
+      <Fragment>
         {loading ? (
           <div> loading....</div>
         ) : (
@@ -53,7 +52,7 @@ class CurrentWeather extends Component {
             ></CurrentWeatherCard>
           </Wrapper>
         )}
-      </div>
+      </Fragment>
     );
   }
 }

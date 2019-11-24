@@ -106,7 +106,7 @@ export default SearchCity;
 
 const SearchBar = styled.input`
   font-size: 1.2rem;
-  jwidth: 40%;
+  width: 40%;
   background-color: rgba(255, 255, 255, 0.1);
   height: 50px;
   border-radius: 0.2em;

@@ -3,7 +3,11 @@ import styled from "styled-components";
 
 const CitiesFetched = ({ citiesArr }) => {
   let cityComponent = citiesArr.map(function(city, i) {
-    return <City key={i}>{city.LocalizedName}</City>;
+    return (
+      <City key={i}>
+        {city.LocalizedName} | {city.Key}{" "}
+      </City>
+    );
   });
 
   return <CitySuggestions>{cityComponent}</CitySuggestions>;
@@ -13,10 +17,12 @@ export default CitiesFetched;
 
 const CitySuggestions = styled.div`
   display: block;
-  width: 225px;
+  width: 41%;
   height: auto;
-  margin: 0px auto;
   background-color: black;
+  position: absolute;
+  top: 67px;
+  left: 29.5%;
 `;
 
 const City = styled.div`

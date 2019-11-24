@@ -21,9 +21,10 @@ class MainScreen extends React.Component {
 export default MainScreen;
 
 export const Wrapper = styled.div`
-  background-color: #282525;
+  background-color: #222831;
   margin-top: -1.1rem;
   display: inline-flex;
   flex-direction: column;
   width: 100%;
+  position: relative;
 `;

@@ -33,7 +33,7 @@ const CurrentWeatherCard = ({ currentWeatherData }) => {
 export default CurrentWeatherCard;
 
 const Card = styled.div`
-  background-color: rgba(33, 48, 81, 0.4);
+  background-color: rgba(0, 0, 0, 0.3);
   color: #ffffff;
   width: 50%;
   height: 300px;
