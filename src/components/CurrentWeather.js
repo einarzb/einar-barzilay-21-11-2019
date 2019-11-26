@@ -5,15 +5,17 @@ import styled from "styled-components";
 class CurrentWeather extends Component {
   state = {
     loading: true,
-    currentWeather: null,
-    city: null
+    curWeather: null,
+    city: null,
+    key:"IFIqv12FwNC7zQWWGTQqMWRhbDGSEnOG"
+
   };
 
   componentDidMount() {
     this.fetchCurrentWeatherApi();
-    this.fetchLocation();
+    //  this.fetchLocation();
   }
-
+  /*
   fetchLocation = () => {
     let location =
       "http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=2OxIxAAbVtWlSTBVlvTONG40GmdTEkAa&q=tel-aviv";
@@ -22,23 +24,21 @@ class CurrentWeather extends Component {
       .then(json => this.setState({ city: json[0].LocalizedName }))
       .catch(err => console.log(err));
   };
+*/
 
   fetchCurrentWeatherApi = () => {
     let currentWeatherApi =
-      "http://dataservice.accuweather.com/currentconditions/v1/215793?apikey=2OxIxAAbVtWlSTBVlvTONG40GmdTEkAa&details=true";
+      `http://dataservice.accuweather.com/currentconditions/v1/215793?apikey=`+this.state.key+`&details=true`;
     fetch(currentWeatherApi)
       .then(res => res.json())
       .then(json =>
-        this.setState(
-          { loading: false, currentWeather: json },
-          console.log(json)
-        )
+        this.setState({ loading: false, curWeather: json }, console.log(json))
       )
       .catch(err => console.log(err));
   };
 
   render() {
-    let { loading, currentWeather, city } = this.state;
+    let { loading, curWeather, city } = this.state;
 
     return (
       <Fragment>
@@ -46,9 +46,10 @@ class CurrentWeather extends Component {
           <div> loading....</div>
         ) : (
           <Wrapper>
+            {/**TODO: should be fetched from redux useReducer from citiesFetched */}
             <h2>{city}</h2>
             <CurrentWeatherCard
-              currentWeatherData={currentWeather}
+              currentWeatherData={curWeather}
             ></CurrentWeatherCard>
           </Wrapper>
         )}

@@ -5,7 +5,8 @@ import styled from "styled-components";
 class DailyWeather extends Component {
   state = {
     loading: true,
-    weather: null
+    weather: null,
+    cityKey: 215793
   };
 
   componentDidMount() {
@@ -14,7 +15,9 @@ class DailyWeather extends Component {
 
   fetchDailyWeatherApi = () => {
     let dailyWeatherApi =
-      "http://dataservice.accuweather.com/forecasts/v1/daily/5day/215793?apikey=2OxIxAAbVtWlSTBVlvTONG40GmdTEkAas";
+      "http://dataservice.accuweather.com/forecasts/v1/daily/5day/" +
+      this.state.cityKey +
+      "?apikey=IFIqv12FwNC7zQWWGTQqMWRhbDGSEnOG&details=true&metric=true";
 
     fetch(dailyWeatherApi)
       .then(res => res.json())

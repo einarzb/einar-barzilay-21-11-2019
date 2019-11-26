@@ -2,8 +2,9 @@ import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 import CitiesFetched from "../components/CitiesFetched";
 import styled from "styled-components";
+import Autocomplete from "react-autocomplete";
 
-const API_KEY = "2OxIxAAbVtWlSTBVlvTONG40GmdTEkAa";
+const API_KEY = "IFIqv12FwNC7zQWWGTQqMWRhbDGSEnOG";
 const API_URL =
   "http://dataservice.accuweather.com/locations/v1/cities/autocomplete";
 
@@ -13,65 +14,77 @@ const INITIAL_CITIES = [
     LocalizedName: "Tel-aviv Port"
   }
 ];
-/*
-http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=3NhsptgUxfS7Y2mMnq04QWhMUsfyQYg0&q=new
 
-getInfo = () => {
-  axios
-    .get(`${API_URL}?apikey=${API_KEY}&q=${this.state.query}`)
-    .then(({ data }) => {
-      this.setState({
-        results: data.data
-      });
-    });
-};
-http://dataservice.accuddweather.com/locations/v1/cities/autocomplete?apikey=3NhsptgUxfS7Y2mMnq04QWhMUsfyQYg0&q=tel-aviv
-http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=3NhsptgUxfS7Y2mMnq04QWhMUsfyQYg0&q=tel-aviv
-*/
 function SearchCity() {
   const [data, setData] = useState(INITIAL_CITIES);
   const [query, setQuery] = useState("tel-aviv"); //set inital state
-  const [isLoading, setIsLoading] = useState(false);
+  const [cityKey, setCityKey] = useState(12345);
   const changeValue = event => setQuery(event.target.value);
+  const selectedValue = val => setQuery(val);
 
+    
   useEffect(() => {
     const fetchMe = async () => {
-      setIsLoading(true);
       const result = await axios(`${API_URL}?apikey=${API_KEY}&q=${query}`);
       setData(result.data);
-      setIsLoading(false);
     };
-    /*
-    async function getCities() {
-      setIsLoading(true);
+    
+    const timer = setTimeout(() => {
+      matchKey(query, data);
+    }, 5000); 
 
-      axios
-        .get(`${API_URL}?apikey=${API_KEY}&q=${query}`)
-        .then(res => {
-          setData(res.data);
-          setIsLoading(false);
-
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-*/
-    console.log(data, [data]);
-
-    /*
-    const fetchData = async () => {
-      const result = await axios(`${API_URL}?apikey=${API_KEY}&q=${city}`);
-      setData(result.data);
-    };*/
     fetchMe();
-    /* return () => {
-      isMounted = false;
-    };
-    */
+    return() => clearTimeout(timer);
   }, [query]);
+
+  const matchKey = (query, res) => {
+    let duckingKey = 0;
+    for(var i = 0; i < res.length; i++) {
+      if(res[i].LocalizedName == query) {    
+        duckingKey = res[i].Key;
+        setCityKey(duckingKey)
+      }
+    }        
+  }
+
+
   return (
-    <Fragment>
+      <div style={{ 
+      fontize: '1.2rem',
+        width: '40%',
+        backgroundColor: 'rgba(255, 255, 255, 1)',
+        height: '50px',
+        borderRadius: '0.2em',
+        display: 'block',
+        margin: '1rem auto 0',
+        color: '#ffffff',
+        padding: '0px 0rem 0 1rem'
+      }}>
+    <Autocomplete
+      getItemValue={item => item.LocalizedName}
+      items={data}
+      renderItem={(item, isHighlighted) => (
+        <div 
+          style={{ fontSize:'18px',
+          background: isHighlighted ? "lightGrey" : "black" }}
+          key={item.Key}
+        >
+          {item.LocalizedName} 
+        </div>
+      )}
+      value={query}
+      onChange={changeValue}
+      onSelect={selectedValue}
+    
+
+    />
+    </div>
+  );
+}
+
+/*  
+   <Fragment>
+
       <SearchBar
         placeholder=" Get the weather of..."
         value={query}
@@ -83,9 +96,6 @@ function SearchCity() {
         <CitiesFetched citiesArr={data}></CitiesFetched>
       )}
     </Fragment>
-  );
-}
-/*  
   useEffect(() => {
     async function getCities() {
       axios
@@ -121,3 +131,4 @@ const SearchBar = styled.input`
     height: 40px;
   }
 `;
+

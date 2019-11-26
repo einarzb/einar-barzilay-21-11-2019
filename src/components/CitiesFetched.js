@@ -5,7 +5,7 @@ const CitiesFetched = ({ citiesArr }) => {
   let cityComponent = citiesArr.map(function(city, i) {
     return (
       <City key={i}>
-        {city.LocalizedName} | {city.Key}{" "}
+        {city.LocalizedName} | {city.Key}
       </City>
     );
   });
