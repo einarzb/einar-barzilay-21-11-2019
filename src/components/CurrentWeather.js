@@ -1,8 +1,12 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import CurrentWeatherCard from "./CurrentWeatherCard";
 import styled from "styled-components";
+import CityNameContext from "../context/CityNameContext";
 
-class CurrentWeather extends Component {
+export function CurrentWeather() {
+  const msg = useContext(CityNameContext);
+
+  /*
   state = {
     loading: true,
     curWeather: null,
@@ -14,7 +18,7 @@ class CurrentWeather extends Component {
     this.fetchCurrentWeatherApi();
     //  this.fetchLocation();
   }
-  /*
+
   fetchLocation = () => {
     let location =
       "http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=2OxIxAAbVtWlSTBVlvTONG40GmdTEkAa&q=tel-aviv";
@@ -23,7 +27,7 @@ class CurrentWeather extends Component {
       .then(json => this.setState({ city: json[0].LocalizedName }))
       .catch(err => console.log(err));
   };
-*/
+
 
   fetchCurrentWeatherApi = () => {
     let currentWeatherApi =
@@ -40,28 +44,30 @@ class CurrentWeather extends Component {
 
   render() {
     let { loading, curWeather, city } = this.state;
-
-    return (
-      <Fragment>
-        {loading ? (
-          <div> loading....</div>
-        ) : (
-          <Wrapper>
-            {/**TODO: should be fetched from redux useReducer from citiesFetched */}
-            <h2>{city}</h2>
-            <CurrentWeatherCard
-              currentWeatherData={curWeather}
-            ></CurrentWeatherCard>
-          </Wrapper>
-        )}
-      </Fragment>
-    );
-  }
+*/
+  return (
+    <Fragment>
+      <h2>yyyy</h2>
+      <div>{msg}</div>
+      {/** 
+      {loading ? (
+        <div> loading....</div>
+      ) : (
+        <Wrapper>
+          <h2>{city}</h2>
+          <div>{msg}</div>
+          <CurrentWeatherCard
+            currentWeatherData={curWeather}
+          ></CurrentWeatherCard>
+        </Wrapper>
+      )}
+    */}
+    </Fragment>
+  );
+  /* }*/
 }
 
-export default CurrentWeather;
-
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   padding: 0 1rem;
   margin-left: 2rem;
   & h2 {

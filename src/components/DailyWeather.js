@@ -1,8 +1,15 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment, useContext } from "react";
 import DailyWeatherCard from "./DailyWeatherCard";
+import CityNameContext from "../context/CityNameContext";
+
 import styled from "styled-components";
 
-class DailyWeather extends Component {
+export function DailyWeather() {
+  const msg = useContext(CityNameContext);
+  const loading = true;
+  const weather = null;
+
+  /*
   state = {
     loading: true,
     weather: null,
@@ -26,27 +33,27 @@ class DailyWeather extends Component {
       )
       .catch(err => console.log(err));
   };
-
   render() {
     let { loading, weather } = this.state;
-    return (
-      <Fragment>
-        {loading ? (
-          <div> loading....</div>
-        ) : (
-          <Wrapper>
-            <h2>5 days forecast</h2>
-            <DailyWeatherCard weatherData={weather}> </DailyWeatherCard>
-          </Wrapper>
-        )}
-      </Fragment>
-    );
-  }
+    */
+
+  return (
+    <Fragment>
+      <div>{msg}</div>
+
+      {loading ? (
+        <div> loading....</div>
+      ) : (
+        <Wrapper>
+          <h2>5 days forecast</h2>
+          <DailyWeatherCard weatherData={weather}> </DailyWeatherCard>
+        </Wrapper>
+      )}
+    </Fragment>
+  );
 }
 
-export default DailyWeather;
-
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   padding: 0 1rem;
   margin-left: 2rem;
   & h2 {

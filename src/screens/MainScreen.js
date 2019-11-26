@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import DailyWeather from "../components/DailyWeather";
-import CurrentWeather from "../components/CurrentWeather";
+import { DailyWeather } from "../components/DailyWeather";
+import { CurrentWeather } from "../components/CurrentWeather";
 import SearchCity from "../components/SearchCity";
 
-class MainScreen extends React.Component {
-  state = {};
+import CityNameContext from "../context/CityNameContext";
 
-  render() {
-    return (
-      <Wrapper>
-        <SearchCity />
+function MainScreen() {
+  return (
+    <Wrapper>
+      <SearchCity />
+      <CityNameContext.Provider value="hello freaking world">
         <CurrentWeather />
         <DailyWeather />
-      </Wrapper>
-    );
-  }
+      </CityNameContext.Provider>
+    </Wrapper>
+  );
 }
 
 export default MainScreen;
