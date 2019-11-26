@@ -17,7 +17,7 @@ class DailyWeather extends Component {
     let dailyWeatherApi =
       "http://dataservice.accuweather.com/forecasts/v1/daily/5day/" +
       this.state.cityKey +
-      "?apikey=IFIqv12FwNC7zQWWGTQqMWRhbDGSEnOG&details=true&metric=true";
+      "?apikey=waav5j72O6VxiKy9ZokbywHChijTHTiD&details=true&metric=true";
 
     fetch(dailyWeatherApi)
       .then(res => res.json())

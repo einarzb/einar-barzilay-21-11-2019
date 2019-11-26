@@ -7,8 +7,7 @@ class CurrentWeather extends Component {
     loading: true,
     curWeather: null,
     city: null,
-    key:"IFIqv12FwNC7zQWWGTQqMWRhbDGSEnOG"
-
+    key: "waav5j72O6VxiKy9ZokbywHChijTHTiD"
   };
 
   componentDidMount() {
@@ -28,7 +27,9 @@ class CurrentWeather extends Component {
 
   fetchCurrentWeatherApi = () => {
     let currentWeatherApi =
-      `http://dataservice.accuweather.com/currentconditions/v1/215793?apikey=`+this.state.key+`&details=true`;
+      `http://dataservice.accuweather.com/currentconditions/v1/215793?apikey=` +
+      this.state.key +
+      `&details=true`;
     fetch(currentWeatherApi)
       .then(res => res.json())
       .then(json =>
