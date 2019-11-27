@@ -1,71 +1,94 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import axios from "axios";
 import styled from "styled-components";
 import Autocomplete from "react-autocomplete";
+import {
+  toggleCityKeyAction,
+  toggleCityNameAction
+} from "../redux/actions/index.js";
 
 const API_KEY = "MH15SyXdJ9cGMQ6CUC9GX68iQ5B2K7nG";
 const API_URL =
   "http://dataservice.accuweather.com/locations/v1/cities/autocomplete";
 
-function SearchCity() {
-  //init state
-  const [data, setData] = useState({
-    Key: "215854",
-    LocalizedName: "Tel-aviv Port"
-  });
-  const [query, setQuery] = useState("Tel Aviv"); //set inital state
-  const [cityKey, setCityKey] = useState(215854);
-  const [loading, setLoading] = useState(true);
-  //handlers
-  const changeValue = event => setQuery(event.target.value);
-  const selectedValue = val => setQuery(val);
+class SearchCity extends Component {
+  state = {
+    query: "",
+    results: [],
+    selectedCity: "",
+    cityKey: ""
+  };
 
-  //invoke everytime component finish rendering
-  useEffect(() => {
-    const fetchMe = async () => {
-      const result = await axios(`${API_URL}?apikey=${API_KEY}&q=${query}`);
-      setData(result.data);
-      setLoading(false);
-    };
+  fetchMeCities = () => {
+    axios
+      .get(`${API_URL}?apikey=${API_KEY}&q=${this.state.query}`)
+      .then(({ data }) => {
+        this.setState({
+          results: data
+        });
+      });
+  };
 
-    const timer = setTimeout(() => {
-      matchKey(query, data);
-    }, 1000);
+  changeValue = event => {
+    this.setState(
+      {
+        query: event.target.value
+      },
+      () => {
+        if (this.state.query && this.state.query.length > 1) {
+          if (this.state.query.length % 2 === 0) {
+            this.fetchMeCities();
+          }
+        }
+      }
+    );
+  };
 
-    fetchMe();
-    return () => clearTimeout(timer);
-  }, [query]);
+  selectedValue = val => {
+    this.setState({
+      query: val,
+      selectedCity: val
+    });
+    let { cityNameRedux } = this.props;
+    let cityName = this.props.cityName;
+    this.matchKey(val, this.state.results);
+    cityNameRedux(val);
+  };
 
-  const matchKey = (query, res) => {
+  matchKey = (val, res) => {
     let duckingKey = 0;
     for (var i = 0; i < res.length; i++) {
-      if (res[i].LocalizedName == query) {
+      if (res[i].LocalizedName == val) {
         duckingKey = res[i].Key;
-        setCityKey(duckingKey);
+        this.setState({ cityKey: duckingKey });
+        let { cityKeyRedux } = this.props;
+        let cityKey = this.props.cityKey;
+        cityKeyRedux(duckingKey);
       }
     }
   };
 
-  return (
-    <div
-      style={{
-        fontize: "1.2rem",
-        width: "40%",
-        backgroundColor: "rgba(0, 0, 0, 0.6)",
-        height: "50px",
-        borderRadius: "0.2em",
-        display: "block",
-        margin: "1rem auto 0",
-        color: "#ffffff",
-        padding: "0px 0rem 0 1rem"
-      }}
-    >
-      {loading ? (
-        <div>loading...</div>
-      ) : (
+  render() {
+    let { query, results } = this.state;
+    return (
+      <div
+        style={{
+          fontize: "1.2rem",
+          width: "40%",
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
+          height: "50px",
+          borderRadius: "0.2em",
+          display: "block",
+          margin: "1rem auto 0",
+          color: "#ffffff",
+          padding: "0px 0rem 0 1rem"
+        }}
+      >
         <Autocomplete
           getItemValue={item => item.LocalizedName}
-          items={data}
+          items={results}
           renderItem={(item, isHighlighted) => (
             <div
               style={{
@@ -78,15 +101,33 @@ function SearchCity() {
             </div>
           )}
           value={query}
-          onChange={changeValue}
-          onSelect={selectedValue}
+          onChange={this.changeValue}
+          onSelect={this.selectedValue}
         />
-      )}
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
-export default SearchCity;
+const mapStateToProps = state => {
+  let props = {
+    cityName: state.cityReducer.cityName,
+    cityKey: state.cityReducer.cityKey
+  };
+
+  console.log("----im props search city:----");
+  console.log(props);
+  console.log("--------------");
+
+  return props;
+};
+
+const mapDispatchToProps = dispatch => ({
+  cityKeyRedux: cityKey => dispatch(toggleCityKeyAction(cityKey)),
+  cityNameRedux: cityName => dispatch(toggleCityNameAction(cityName))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchCity);
 
 const SearchBar = styled.input`
   font-size: 1.2rem;
