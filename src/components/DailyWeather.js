@@ -1,15 +1,8 @@
-import React, { Fragment, useContext } from "react";
+import React, { Component, Fragment } from "react";
 import DailyWeatherCard from "./DailyWeatherCard";
-import CityNameContext from "../context/CityNameContext";
-
 import styled from "styled-components";
 
-export function DailyWeather() {
-  const msg = useContext(CityNameContext);
-  const loading = true;
-  const weather = null;
-
-  /*
+class DailyWeather extends Component {
   state = {
     loading: true,
     weather: null,
@@ -24,7 +17,7 @@ export function DailyWeather() {
     let dailyWeatherApi =
       "http://dataservice.accuweather.com/forecasts/v1/daily/5day/" +
       this.state.cityKey +
-      "?apikey=waav5j72O6VxiKy9ZokbywHChijTHTiD&details=true&metric=true";
+      "?apikey=MH15SyXdJ9cGMQ6CUC9GX68iQ5B2K7nG&details=true&metric=true";
 
     fetch(dailyWeatherApi)
       .then(res => res.json())
@@ -33,27 +26,27 @@ export function DailyWeather() {
       )
       .catch(err => console.log(err));
   };
+
   render() {
     let { loading, weather } = this.state;
-    */
-
-  return (
-    <Fragment>
-      <div>{msg}</div>
-
-      {loading ? (
-        <div> loading....</div>
-      ) : (
-        <Wrapper>
-          <h2>5 days forecast</h2>
-          <DailyWeatherCard weatherData={weather}> </DailyWeatherCard>
-        </Wrapper>
-      )}
-    </Fragment>
-  );
+    return (
+      <Fragment>
+        {loading ? (
+          <div> loading....</div>
+        ) : (
+          <Wrapper>
+            <h2>5 days forecast</h2>
+            <DailyWeatherCard weatherData={weather}> </DailyWeatherCard>
+          </Wrapper>
+        )}
+      </Fragment>
+    );
+  }
 }
 
-const Wrapper = styled.div`
+export default DailyWeather;
+
+export const Wrapper = styled.div`
   padding: 0 1rem;
   margin-left: 2rem;
   & h2 {

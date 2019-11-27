@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import Autocomplete from "react-autocomplete";
 
-const API_KEY = "waav5j72O6VxiKy9ZokbywHChijTHTiD";
+const API_KEY = "MH15SyXdJ9cGMQ6CUC9GX68iQ5B2K7nG";
 const API_URL =
   "http://dataservice.accuweather.com/locations/v1/cities/autocomplete";
 
@@ -13,7 +13,7 @@ function SearchCity() {
     Key: "215854",
     LocalizedName: "Tel-aviv Port"
   });
-  const [query, setQuery] = useState("Tel-Aviv Port"); //set inital state
+  const [query, setQuery] = useState("Tel Aviv"); //set inital state
   const [cityKey, setCityKey] = useState(215854);
   const [loading, setLoading] = useState(true);
   //handlers

@@ -1,24 +1,20 @@
-import React, { Fragment, useContext } from "react";
+import React, { Component, Fragment } from "react";
 import CurrentWeatherCard from "./CurrentWeatherCard";
 import styled from "styled-components";
-import CityNameContext from "../context/CityNameContext";
 
-export function CurrentWeather() {
-  const msg = useContext(CityNameContext);
-
-  /*
+class CurrentWeather extends Component {
   state = {
     loading: true,
     curWeather: null,
     city: null,
-    key: "waav5j72O6VxiKy9ZokbywHChijTHTiD"
+    key: "MH15SyXdJ9cGMQ6CUC9GX68iQ5B2K7nG"
   };
 
   componentDidMount() {
     this.fetchCurrentWeatherApi();
     //  this.fetchLocation();
   }
-
+  /*
   fetchLocation = () => {
     let location =
       "http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=2OxIxAAbVtWlSTBVlvTONG40GmdTEkAa&q=tel-aviv";
@@ -27,7 +23,7 @@ export function CurrentWeather() {
       .then(json => this.setState({ city: json[0].LocalizedName }))
       .catch(err => console.log(err));
   };
-
+*/
 
   fetchCurrentWeatherApi = () => {
     let currentWeatherApi =
@@ -44,30 +40,28 @@ export function CurrentWeather() {
 
   render() {
     let { loading, curWeather, city } = this.state;
-*/
-  return (
-    <Fragment>
-      <h2>yyyy</h2>
-      <div>{msg}</div>
-      {/** 
-      {loading ? (
-        <div> loading....</div>
-      ) : (
-        <Wrapper>
-          <h2>{city}</h2>
-          <div>{msg}</div>
-          <CurrentWeatherCard
-            currentWeatherData={curWeather}
-          ></CurrentWeatherCard>
-        </Wrapper>
-      )}
-    */}
-    </Fragment>
-  );
-  /* }*/
+
+    return (
+      <Fragment>
+        {loading ? (
+          <div> loading....</div>
+        ) : (
+          <Wrapper>
+            {/**TODO: should be fetched from redux useReducer from citiesFetched */}
+            <h2>{city}</h2>
+            <CurrentWeatherCard
+              currentWeatherData={curWeather}
+            ></CurrentWeatherCard>
+          </Wrapper>
+        )}
+      </Fragment>
+    );
+  }
 }
 
-const Wrapper = styled.div`
+export default CurrentWeather;
+
+export const Wrapper = styled.div`
   padding: 0 1rem;
   margin-left: 2rem;
   & h2 {

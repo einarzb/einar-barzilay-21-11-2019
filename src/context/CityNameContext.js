@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
+//default val
 const CityNameContext = createContext(null);
-console.log("yyy");
 
 /*
 import { createContext } from "react";
