@@ -1,9 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 
-const CurrentWeatherCard = ({ currentWeatherData }) => {
-  let currentForecast = currentWeatherData.map(function(item, i) {
+const fetchCurrentWeatherApi = apiToFetch => {
+  console.log(apiToFetch);
+  let currentWeatherData = "";
+  fetch(apiToFetch)
+    .then(res => res.json())
+    .then(json => ((currentWeatherData = json[0]), console.log(json[0])))
+    .catch(err => console.log(err));
+  console.log(currentWeatherData);
+  return currentWeatherData;
+};
+
+const CurrentWeatherCard = ({ data, currentWeatherData }) => {
+  let apiKey = "gJ0SjVRiizbHwrojS59gsCgeXjaqkYoq";
+
+  let url =
+    `http://dataservice.accuweather.com/currentconditions/v1/` +
+    data +
+    `?apikey=` +
+    apiKey +
+    `&details=true`;
+
+  let apiToFetch = url;
+  fetchCurrentWeatherApi(apiToFetch);
+  console.log(currentWeatherData);
+
+  let currentForecast = <div>{apiToFetch}</div>;
+  /*  {
     return (
+
       <Card key={i}>
         <WeatherDescription>{item.WeatherText}</WeatherDescription>
         <WeatherIcon
@@ -26,7 +52,7 @@ const CurrentWeatherCard = ({ currentWeatherData }) => {
       </Card>
     );
   });
-
+*/
   return <CurrentWeather>{currentForecast}</CurrentWeather>;
 };
 

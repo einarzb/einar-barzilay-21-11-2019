@@ -9,7 +9,7 @@ import {
   toggleCityNameAction
 } from "../redux/actions/index.js";
 
-const API_KEY = "MH15SyXdJ9cGMQ6CUC9GX68iQ5B2K7nG";
+const API_KEY = "gJ0SjVRiizbHwrojS59gsCgeXjaqkYoq";
 const API_URL =
   "http://dataservice.accuweather.com/locations/v1/cities/autocomplete";
 
@@ -52,7 +52,7 @@ class SearchCity extends Component {
       selectedCity: val
     });
     let { cityNameRedux } = this.props;
-    let cityName = this.props.cityName;
+    let cityName = this.props.cityKey;
     this.matchKey(val, this.state.results);
     cityNameRedux(val);
   };

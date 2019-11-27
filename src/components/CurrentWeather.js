@@ -1,17 +1,23 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import {
+  toggleCityKeyAction,
+  toggleCityNameAction
+} from "../redux/actions/index.js";
+
 import CurrentWeatherCard from "./CurrentWeatherCard";
 import styled from "styled-components";
 
 class CurrentWeather extends Component {
   state = {
-    loading: true,
+    loading: false,
     curWeather: null,
-    city: null,
-    key: "MH15SyXdJ9cGMQ6CUC9GX68iQ5B2K7nG"
+    key: "gJ0SjVRiizbHwrojS59gsCgeXjaqkYoq"
   };
 
   componentDidMount() {
-    this.fetchCurrentWeatherApi();
+    // let nb = this.state.apiStringToFetchCurrent;
+    //   this.fetchCurrentWeatherApi(nb);
     //  this.fetchLocation();
   }
   /*
@@ -23,34 +29,32 @@ class CurrentWeather extends Component {
       .then(json => this.setState({ city: json[0].LocalizedName }))
       .catch(err => console.log(err));
   };
-*/
 
-  fetchCurrentWeatherApi = () => {
-    let currentWeatherApi =
-      `http://dataservice.accuweather.com/currentconditions/v1/215793?apikey=` +
-      this.state.key +
-      `&details=true`;
-    fetch(currentWeatherApi)
+
+  fetchCurrentWeatherApi = nb => {
+    //  console.log(nb);
+
+    fetch(nb)
       .then(res => res.json())
       .then(json =>
         this.setState({ loading: false, curWeather: json }, console.log(json))
       )
       .catch(err => console.log(err));
   };
-
+*/
   render() {
-    let { loading, curWeather, city } = this.state;
-
+    let { loading } = this.state;
+    let { cityName, cityKey } = this.props;
     return (
       <Fragment>
         {loading ? (
           <div> loading....</div>
         ) : (
           <Wrapper>
-            {/**TODO: should be fetched from redux useReducer from citiesFetched */}
-            <h2>{city}</h2>
+            <h2>{cityName}</h2>
             <CurrentWeatherCard
-              currentWeatherData={curWeather}
+              data={cityKey}
+              //currentWeatherData={curWeather}
             ></CurrentWeatherCard>
           </Wrapper>
         )}
@@ -58,8 +62,25 @@ class CurrentWeather extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  let props = {
+    cityName: state.cityReducer.cityName,
+    cityKey: state.cityReducer.cityKey
+  };
 
-export default CurrentWeather;
+  console.log("----im props current weather:----");
+  console.log(props);
+  console.log("--------------");
+
+  return props;
+};
+
+const mapDispatchToProps = dispatch => ({
+  cityKeyRedux: cityKey => dispatch(toggleCityKeyAction(cityKey)),
+  cityNameRedux: cityName => dispatch(toggleCityNameAction(cityName))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentWeather);
 
 export const Wrapper = styled.div`
   padding: 0 1rem;
