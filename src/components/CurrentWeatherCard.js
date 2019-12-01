@@ -4,7 +4,6 @@ import styled from "styled-components";
 let jsonData = "";
 
 const fetchCurrentWeatherApi = url => {
-  /*  console.log("step 03 - im here in fetch current weather api");*/
   fetch(url)
     .then(res => res.json())
     .then(function(json) {
@@ -16,15 +15,9 @@ const fetchCurrentWeatherApi = url => {
 const CurrentWeatherCard = ({ cityKey, apiKey }) => {
   let currentForecast = "";
 
-  /* console.log(
-    "step 02 - im CurrentWeatherCard and I got cityKey and apiKey - I will bring back current daily weather"
-  );
-  */
   let url = "";
-  // console.log(jsonData);
 
   if (cityKey == "") {
-    // console.log("dont have a city yet");
   } else {
     url =
       `http://dataservice.accuweather.com/currentconditions/v1/` +

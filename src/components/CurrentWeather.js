@@ -14,37 +14,9 @@ class CurrentWeather extends Component {
     cityKey: this.props.cityKey
   };
 
-  componentDidMount() {
-    // let nb = this.state.apiStringToFetchCurrent;
-    //   this.fetchCurrentWeatherApi(nb);
-    //  this.fetchLocation();
-  }
-  /*
-  fetchLocation = () => {
-    let location =
-      "http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=2OxIxAAbVtWlSTBVlvTONG40GmdTEkAa&q=tel-aviv";
-    fetch(location)
-      .then(res => res.json())
-      .then(json => this.setState({ city: json[0].LocalizedName }))
-      .catch(err => console.log(err));
-  };
-
-
-  fetchCurrentWeatherApi = nb => {
-    //  console.log(nb);
-
-    fetch(nb)
-      .then(res => res.json())
-      .then(json =>
-        this.setState({ loading: false, curWeather: json }, console.log(json))
-      )
-      .catch(err => console.log(err));
-  };
-*/
   render() {
     let { loading } = this.state;
     let { cityName, cityKey, apiKey } = this.props;
-    //console.log("current weather - step 01");
 
     return (
       <Fragment>
@@ -69,10 +41,6 @@ const mapStateToProps = state => {
     cityKey: state.cityReducer.cityKey,
     apiKey: state.apiReducer.apiKey
   };
-
-  //  console.log("----im props current weather:----");
-  // console.log(props);
-  //console.log("--------------");
 
   return props;
 };

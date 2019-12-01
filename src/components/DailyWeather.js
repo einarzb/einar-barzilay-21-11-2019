@@ -14,45 +14,6 @@ class DailyWeather extends Component {
     cityKey: this.props.cityKey
   };
 
-  componentDidMount() {
-    // console.log(this.state.citykey);
-  }
-  /*
-  componentDidUpdate() {
-    if (this.props.cityName) {
-      console.log("go");
-      console.log(this.props.cityName);
-
-      console.log(this.props.cityKey);
-      this.state.loading = false;
-      //move this from component didupdate
-      // this.fetchDailyWeatherApi();
-    } else {
-      console.log("loading...");
-      this.state.loading = true;
-    }
-  }
-
-  fetchDailyWeatherApi = () => {
-    let dailyWeatherApi =
-      "http://dataservice.accuweather.com/forecasts/v1/daily/5day/" +
-      this.props.cityKey +
-      "?apikey=" +
-      this.props.apiKey +
-      "&details=true&metric=true";
-
-    fetch(dailyWeatherApi)
-      .then(res => res.json())
-      .then(json =>
-        this.setState(
-          { loading: false, weather: json },
-          console.log(json),
-          console.log(dailyWeatherApi)
-        )
-      )
-      .catch(err => console.log(err));
-  };
-*/
   render() {
     let { loading } = this.state;
     let { cityKey, apiKey } = this.props;
@@ -81,10 +42,6 @@ const mapStateToProps = state => {
     cityKey: state.cityReducer.cityKey,
     apiKey: state.apiReducer.apiKey
   };
-
-  console.log("----im props daily weather:----");
-  console.log(props);
-  console.log("--------------");
 
   return props;
 };

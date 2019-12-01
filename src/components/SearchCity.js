@@ -50,7 +50,6 @@ class SearchCity extends Component {
     });
 
     let { cityNameRedux } = this.props;
-    //let cityName = this.props.cityKey;
     this.matchKey(val, this.state.results);
     cityNameRedux(val);
   };
@@ -113,10 +112,6 @@ const mapStateToProps = state => {
     cityKey: state.cityReducer.cityKey,
     apiKey: state.apiReducer.apiKey
   };
-
-  // console.log("----im props search city:----");
-  //console.log(props);
-  //console.log("--------------");
 
   return props;
 };

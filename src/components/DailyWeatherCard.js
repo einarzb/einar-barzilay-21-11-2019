@@ -26,10 +26,8 @@ const fetchDailyWeatherApi = url => {
 const DailyWeatherCard = ({ cityKey, apiKey, convertedTemp }) => {
   let dailyForecast = "";
   let url = "";
-  console.log(jsonData);
 
   if (cityKey == "") {
-    //console.log("waiting...");
   } else {
     url =
       "http://dataservice.accuweather.com/forecasts/v1/daily/5day/" +
