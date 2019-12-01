@@ -2,10 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 const toggleTempType = temp => {
-  console.log(temp);
   let convertedTemp = Math.round((temp - 32) / 1.8);
-  console.log(convertedTemp);
 };
+
 const DateParser = date => {
   let str = date.date;
   let res = str.slice(5, 10);

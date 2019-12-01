@@ -1,32 +1,46 @@
 import React from "react";
 import styled from "styled-components";
 
-const fetchCurrentWeatherApi = apiToFetch => {
-  console.log(apiToFetch);
-  let currentWeatherData = "";
-  fetch(apiToFetch)
+const fetchCurrentWeatherApi = url => {
+  console.log("step 03 - im here in fetch current weather api");
+  let val = "";
+  fetch(url)
     .then(res => res.json())
-    .then(json => ((currentWeatherData = json[0]), console.log(json[0])))
+    .then(json => (val = json))
     .catch(err => console.log(err));
-  console.log(currentWeatherData);
-  return currentWeatherData;
 };
 
-const CurrentWeatherCard = ({ data, currentWeatherData }) => {
-  let apiKey = "gJ0SjVRiizbHwrojS59gsCgeXjaqkYoq";
+//let currentWeatherData = "";
 
-  let url =
-    `http://dataservice.accuweather.com/currentconditions/v1/` +
-    data +
-    `?apikey=` +
-    apiKey +
-    `&details=true`;
+const CurrentWeatherCard = ({ data, apiKey }) => {
+  console.log(
+    "step 02 - im CurrentWeatherCard and I got cityKey and apiKey - I will bring back current daily weather"
+  );
+  let url = "";
+  if (data == "") {
+    console.log(data);
 
-  let apiToFetch = url;
-  fetchCurrentWeatherApi(apiToFetch);
-  console.log(currentWeatherData);
+    console.log("dont have a city yet");
+  } else {
+    console.log("I have data = cityKey");
+    console.log(data);
 
-  let currentForecast = <div>{apiToFetch}</div>;
+    url =
+      `http://dataservice.accuweather.com/currentconditions/v1/` +
+      data +
+      `?apikey=` +
+      apiKey +
+      `&details=true`;
+    console.log(url);
+    console.log(
+      "now that I have url I can fetch and display current weather data"
+    );
+
+    fetchCurrentWeatherApi(url);
+  }
+
+  //console.log(what);
+
   /*  {
     return (
 
@@ -53,6 +67,8 @@ const CurrentWeatherCard = ({ data, currentWeatherData }) => {
     );
   });
 */
+  let currentForecast = <div>{url}</div>;
+
   return <CurrentWeather>{currentForecast}</CurrentWeather>;
 };
 

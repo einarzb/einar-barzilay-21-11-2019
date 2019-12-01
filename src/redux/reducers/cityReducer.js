@@ -1,7 +1,7 @@
 import { CITY_KEY, CITY_NAME } from "../actions/index";
 
-let cityKey = "";
-let cityName = "";
+let cityKey = "215854";
+let cityName = "Tel Aviv";
 
 const initState = {
   cityKey: cityKey,

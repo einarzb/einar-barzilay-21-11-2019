@@ -1,9 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import {
-  toggleCityKeyAction,
-  toggleCityNameAction
-} from "../redux/actions/index.js";
+import { cityKeyAction, cityNameAction } from "../redux/actions/index.js";
 
 import CurrentWeatherCard from "./CurrentWeatherCard";
 import styled from "styled-components";
@@ -11,8 +8,7 @@ import styled from "styled-components";
 class CurrentWeather extends Component {
   state = {
     loading: false,
-    curWeather: null,
-    key: "gJ0SjVRiizbHwrojS59gsCgeXjaqkYoq"
+    curWeather: null
   };
 
   componentDidMount() {
@@ -44,7 +40,12 @@ class CurrentWeather extends Component {
 */
   render() {
     let { loading } = this.state;
-    let { cityName, cityKey } = this.props;
+    let { cityName, cityKey, apiKey } = this.props;
+    console.log("current weather - step 01");
+    console.log(cityKey);
+    console.log(apiKey);
+    console.log(cityName);
+
     return (
       <Fragment>
         {loading ? (
@@ -54,7 +55,7 @@ class CurrentWeather extends Component {
             <h2>{cityName}</h2>
             <CurrentWeatherCard
               data={cityKey}
-              //currentWeatherData={curWeather}
+              apiKey={apiKey}
             ></CurrentWeatherCard>
           </Wrapper>
         )}
@@ -65,7 +66,8 @@ class CurrentWeather extends Component {
 const mapStateToProps = state => {
   let props = {
     cityName: state.cityReducer.cityName,
-    cityKey: state.cityReducer.cityKey
+    cityKey: state.cityReducer.cityKey,
+    apiKey: state.apiReducer.apiKey
   };
 
   console.log("----im props current weather:----");
@@ -76,8 +78,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  cityKeyRedux: cityKey => dispatch(toggleCityKeyAction(cityKey)),
-  cityNameRedux: cityName => dispatch(toggleCityNameAction(cityName))
+  cityKeyRedux: cityKey => dispatch(cityKeyAction(cityKey)),
+  cityNameRedux: cityName => dispatch(cityNameAction(cityName))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrentWeather);

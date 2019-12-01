@@ -4,12 +4,8 @@ import { connect } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 import Autocomplete from "react-autocomplete";
-import {
-  toggleCityKeyAction,
-  toggleCityNameAction
-} from "../redux/actions/index.js";
+import { cityKeyAction, cityNameAction } from "../redux/actions/index.js";
 
-const API_KEY = "gJ0SjVRiizbHwrojS59gsCgeXjaqkYoq";
 const API_URL =
   "http://dataservice.accuweather.com/locations/v1/cities/autocomplete";
 
@@ -18,12 +14,13 @@ class SearchCity extends Component {
     query: "",
     results: [],
     selectedCity: "",
-    cityKey: ""
+    cityKey: "",
+    apiKey: this.props.apiKey
   };
 
   fetchMeCities = () => {
     axios
-      .get(`${API_URL}?apikey=${API_KEY}&q=${this.state.query}`)
+      .get(`${API_URL}?apikey=${this.state.apiKey}&q=${this.state.query}`)
       .then(({ data }) => {
         this.setState({
           results: data
@@ -51,8 +48,9 @@ class SearchCity extends Component {
       query: val,
       selectedCity: val
     });
+
     let { cityNameRedux } = this.props;
-    let cityName = this.props.cityKey;
+    //let cityName = this.props.cityKey;
     this.matchKey(val, this.state.results);
     cityNameRedux(val);
   };
@@ -112,7 +110,8 @@ class SearchCity extends Component {
 const mapStateToProps = state => {
   let props = {
     cityName: state.cityReducer.cityName,
-    cityKey: state.cityReducer.cityKey
+    cityKey: state.cityReducer.cityKey,
+    apiKey: state.apiReducer.apiKey
   };
 
   console.log("----im props search city:----");
@@ -123,8 +122,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  cityKeyRedux: cityKey => dispatch(toggleCityKeyAction(cityKey)),
-  cityNameRedux: cityName => dispatch(toggleCityNameAction(cityName))
+  cityKeyRedux: cityKey => dispatch(cityKeyAction(cityKey)),
+  cityNameRedux: cityName => dispatch(cityNameAction(cityName))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchCity);
