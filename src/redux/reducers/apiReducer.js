@@ -6,7 +6,7 @@ const initState = {
   apiKey: apiKey
 };
 
-const cityReducer = (state = initState, action) => {
+const apiReducer = (state = initState, action) => {
   switch (action.type) {
     case API_KEY:
       return passApiKey();
@@ -20,4 +20,4 @@ function passApiKey() {
   return { ...initState };
 }
 
-export default cityReducer;
+export default apiReducer;
