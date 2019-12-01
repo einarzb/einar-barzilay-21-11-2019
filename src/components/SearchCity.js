@@ -70,19 +70,7 @@ class SearchCity extends Component {
   render() {
     let { query, results } = this.state;
     return (
-      <div
-        style={{
-          fontize: "1.2rem",
-          width: "40%",
-          backgroundColor: "rgba(0, 0, 0, 0.6)",
-          height: "50px",
-          borderRadius: "0.2em",
-          display: "block",
-          margin: "1rem auto 0",
-          color: "#ffffff",
-          padding: "0px 0rem 0 1rem"
-        }}
-      >
+      <SearchBar>
         <Autocomplete
           getItemValue={item => item.LocalizedName}
           items={results}
@@ -101,7 +89,7 @@ class SearchCity extends Component {
           onChange={this.changeValue}
           onSelect={this.selectedValue}
         />
-      </div>
+      </SearchBar>
     );
   }
 }
@@ -123,20 +111,29 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchCity);
 
-const SearchBar = styled.input`
-  font-size: 1.2rem;
-  width: 40%;
+const SearchBar = styled.div`
+  font-size: 1.8rem;
+  width: 600px;
   background-color: rgba(255, 255, 255, 0.1);
   height: 50px;
   border-radius: 0.2em;
   display: block;
   margin: 1rem auto 0;
   color: #ffffff;
-  border: none;
   padding: 0px 0rem 0 1rem;
-  @media (max-width: 768px) {
-    padding: 0 0 0 10px;
-    width: 80%;
-    height: 40px;
+  & div {
+    border: none;
+    width: inherit;
+    height: auto;
+    & input {
+      border: none;
+      focus: none;
+      outline: none;
+      color: #ffffff;
+      font-size: 1.7rem;
+      height: 40px;
+      background-color: transparent;
+      width: 85%;
+    }
   }
 `;
