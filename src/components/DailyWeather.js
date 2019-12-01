@@ -2,13 +2,13 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
 import DailyWeatherCard from "./DailyWeatherCard";
-import { cityKeyAction, cityNameAction } from "../redux/actions/index.js";
+import { cityKeyAction } from "../redux/actions/index.js";
 
 import styled from "styled-components";
 
 class DailyWeather extends Component {
   state = {
-    loading: true,
+    loading: false,
     weather: null,
     apiKey: this.props.apiKey,
     cityKey: this.props.cityKey
@@ -17,15 +17,16 @@ class DailyWeather extends Component {
   componentDidMount() {
     // console.log(this.state.citykey);
   }
-
+  /*
   componentDidUpdate() {
     if (this.props.cityName) {
       console.log("go");
       console.log(this.props.cityName);
 
+      console.log(this.props.cityKey);
       this.state.loading = false;
-      //move this from component didupdate 
-     // this.fetchDailyWeatherApi();
+      //move this from component didupdate
+      // this.fetchDailyWeatherApi();
     } else {
       console.log("loading...");
       this.state.loading = true;
@@ -37,7 +38,7 @@ class DailyWeather extends Component {
       "http://dataservice.accuweather.com/forecasts/v1/daily/5day/" +
       this.props.cityKey +
       "?apikey=" +
-      this.state.apiKey +
+      this.props.apiKey +
       "&details=true&metric=true";
 
     fetch(dailyWeatherApi)
@@ -51,9 +52,10 @@ class DailyWeather extends Component {
       )
       .catch(err => console.log(err));
   };
-
+*/
   render() {
     let { loading } = this.state;
+    let { cityKey, apiKey } = this.props;
 
     return (
       <Fragment>
@@ -62,8 +64,11 @@ class DailyWeather extends Component {
         ) : (
           <Wrapper>
             <h2>5 days forecast</h2>
-            {/**
-            <DailyWeatherCard weatherData={weather}> </DailyWeatherCard> */}
+
+            <DailyWeatherCard
+              cityKey={cityKey}
+              apiKey={apiKey}
+            ></DailyWeatherCard>
           </Wrapper>
         )}
       </Fragment>
@@ -73,7 +78,6 @@ class DailyWeather extends Component {
 
 const mapStateToProps = state => {
   let props = {
-    cityName: state.cityReducer.cityName,
     cityKey: state.cityReducer.cityKey,
     apiKey: state.apiReducer.apiKey
   };
@@ -86,8 +90,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  cityKeyRedux: cityKey => dispatch(cityKeyAction(cityKey)),
-  cityNameRedux: cityName => dispatch(cityNameAction(cityName))
+  cityKeyRedux: cityKey => dispatch(cityKeyAction(cityKey))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DailyWeather);

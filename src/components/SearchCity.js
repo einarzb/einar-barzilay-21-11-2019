@@ -114,9 +114,9 @@ const mapStateToProps = state => {
     apiKey: state.apiReducer.apiKey
   };
 
-  console.log("----im props search city:----");
-  console.log(props);
-  console.log("--------------");
+  // console.log("----im props search city:----");
+  //console.log(props);
+  //console.log("--------------");
 
   return props;
 };

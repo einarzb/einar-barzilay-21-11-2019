@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
+
 import { cityKeyAction, cityNameAction } from "../redux/actions/index.js";
 
 import CurrentWeatherCard from "./CurrentWeatherCard";
@@ -8,7 +9,9 @@ import styled from "styled-components";
 class CurrentWeather extends Component {
   state = {
     loading: false,
-    curWeather: null
+    curWeather: null,
+    apiKey: this.props.apiKey,
+    cityKey: this.props.cityKey
   };
 
   componentDidMount() {
@@ -41,10 +44,7 @@ class CurrentWeather extends Component {
   render() {
     let { loading } = this.state;
     let { cityName, cityKey, apiKey } = this.props;
-    console.log("current weather - step 01");
-    console.log(cityKey);
-    console.log(apiKey);
-    console.log(cityName);
+    //console.log("current weather - step 01");
 
     return (
       <Fragment>
@@ -54,7 +54,7 @@ class CurrentWeather extends Component {
           <Wrapper>
             <h2>{cityName}</h2>
             <CurrentWeatherCard
-              data={cityKey}
+              cityKey={cityKey}
               apiKey={apiKey}
             ></CurrentWeatherCard>
           </Wrapper>
@@ -70,9 +70,9 @@ const mapStateToProps = state => {
     apiKey: state.apiReducer.apiKey
   };
 
-  console.log("----im props current weather:----");
-  console.log(props);
-  console.log("--------------");
+  //  console.log("----im props current weather:----");
+  // console.log(props);
+  //console.log("--------------");
 
   return props;
 };

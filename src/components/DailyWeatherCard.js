@@ -3,44 +3,78 @@ import styled from "styled-components";
 
 const toggleTempType = temp => {
   let convertedTemp = Math.round((temp - 32) / 1.8);
+  return convertedTemp;
 };
-
 const DateParser = date => {
   let str = date.date;
   let res = str.slice(5, 10);
   date = res;
   return res;
 };
-const DailyWeatherCard = ({ weatherData, convertedTemp, str }) => {
-  let dailyForecast = weatherData.DailyForecasts.map(function(item, i) {
-    return (
-      <Card key={i}>
-        <DateParser date={item.Date}></DateParser>
-        <WeatherDescription>{item.Day.IconPhrase}</WeatherDescription>
-        <WeatherIcon
-          src={
-            "https://www.accuweather.com/images/weathericons/" +
-            item.Day.Icon +
-            ".svg"
-          }
-        />
-        <DataRow>
-          <Temp onClick={() => toggleTempType(item.Temperature.Maximum.Value)}>
-            <div>Maximum</div>
-            {item.Temperature.Maximum.Value}
-            <sup>{item.Temperature.Maximum.Unit}</sup>
-            {convertedTemp}
-          </Temp>
-          <Temp onClick={() => toggleTempType(item.Temperature.Minimum.Value)}>
-            <div>Minimum</div>
-            {item.Temperature.Minimum.Value}
-            <sup>{item.Temperature.Minimum.Unit}</sup>
-            {convertedTemp}
-          </Temp>
-        </DataRow>
-      </Card>
-    );
-  });
+
+let jsonData = "";
+
+const fetchDailyWeatherApi = url => {
+  fetch(url)
+    .then(res => res.json())
+    .then(function(json) {
+      jsonData = json;
+    })
+    .catch(err => console.log(err));
+};
+
+const DailyWeatherCard = ({ cityKey, apiKey, convertedTemp }) => {
+  let dailyForecast = "";
+  let url = "";
+  console.log(jsonData);
+
+  if (cityKey == "") {
+    //console.log("waiting...");
+  } else {
+    url =
+      "http://dataservice.accuweather.com/forecasts/v1/daily/5day/" +
+      cityKey +
+      "?apikey=" +
+      apiKey +
+      "&details=true&metric=true";
+    fetchDailyWeatherApi(url);
+
+    if (jsonData != "") {
+      dailyForecast = jsonData.DailyForecasts.map(function(item, i) {
+        return (
+          <Card key={i}>
+            <DateParser date={item.Date}></DateParser>
+            <WeatherDescription>{item.Day.IconPhrase}</WeatherDescription>
+            <WeatherIcon
+              src={
+                "https://www.accuweather.com/images/weathericons/" +
+                item.Day.Icon +
+                ".svg"
+              }
+            />
+            <DataRow>
+              <Temp
+                onClick={() => toggleTempType(item.Temperature.Maximum.Value)}
+              >
+                <div>Maximum</div>
+                {item.Temperature.Maximum.Value}
+                <sup>{item.Temperature.Maximum.Unit}</sup>
+                {convertedTemp}
+              </Temp>
+              <Temp
+                onClick={() => toggleTempType(item.Temperature.Minimum.Value)}
+              >
+                <div>Minimum</div>
+                {item.Temperature.Minimum.Value}
+                <sup>{item.Temperature.Minimum.Unit}</sup>
+                {convertedTemp}
+              </Temp>
+            </DataRow>
+          </Card>
+        );
+      });
+    }
+  }
 
   return <WeatherCardsRow>{dailyForecast}</WeatherCardsRow>;
 };

@@ -1,73 +1,66 @@
 import React from "react";
 import styled from "styled-components";
 
+let jsonData = "";
+
 const fetchCurrentWeatherApi = url => {
-  console.log("step 03 - im here in fetch current weather api");
-  let val = "";
+  /*  console.log("step 03 - im here in fetch current weather api");*/
   fetch(url)
     .then(res => res.json())
-    .then(json => (val = json))
+    .then(function(json) {
+      jsonData = json;
+    })
     .catch(err => console.log(err));
 };
 
-//let currentWeatherData = "";
+const CurrentWeatherCard = ({ cityKey, apiKey }) => {
+  let currentForecast = "";
 
-const CurrentWeatherCard = ({ data, apiKey }) => {
-  console.log(
+  /* console.log(
     "step 02 - im CurrentWeatherCard and I got cityKey and apiKey - I will bring back current daily weather"
   );
+  */
   let url = "";
-  if (data == "") {
-    console.log(data);
+  // console.log(jsonData);
 
-    console.log("dont have a city yet");
+  if (cityKey == "") {
+    // console.log("dont have a city yet");
   } else {
-    console.log("I have data = cityKey");
-    console.log(data);
-
     url =
       `http://dataservice.accuweather.com/currentconditions/v1/` +
-      data +
+      cityKey +
       `?apikey=` +
       apiKey +
       `&details=true`;
-    console.log(url);
-    console.log(
-      "now that I have url I can fetch and display current weather data"
-    );
-
     fetchCurrentWeatherApi(url);
+
+    if (jsonData != "") {
+      currentForecast = jsonData.map(function(item, i) {
+        return (
+          <Card key={i}>
+            <WeatherDescription>{item.WeatherText}</WeatherDescription>
+            <WeatherIcon
+              src={
+                "https://www.accuweather.com/images/weathericons/" +
+                item.WeatherIcon +
+                ".svg"
+              }
+            />
+            <DataRow>
+              <Temp>
+                {item.Temperature.Metric.Value}
+                <sup>{item.Temperature.Metric.Unit}</sup>
+              </Temp>
+              <Temp>
+                {item.Temperature.Imperial.Value}
+                <sup>{item.Temperature.Imperial.Unit}</sup>
+              </Temp>
+            </DataRow>
+          </Card>
+        );
+      });
+    }
   }
-
-  //console.log(what);
-
-  /*  {
-    return (
-
-      <Card key={i}>
-        <WeatherDescription>{item.WeatherText}</WeatherDescription>
-        <WeatherIcon
-          src={
-            "https://www.accuweather.com/images/weathericons/" +
-            item.WeatherIcon +
-            ".svg"
-          }
-        />
-        <DataRow>
-          <Temp>
-            {item.Temperature.Metric.Value}
-            <sup>{item.Temperature.Metric.Unit}</sup>
-          </Temp>
-          <Temp>
-            {item.Temperature.Imperial.Value}
-            <sup>{item.Temperature.Imperial.Unit}</sup>
-          </Temp>
-        </DataRow>
-      </Card>
-    );
-  });
-*/
-  let currentForecast = <div>{url}</div>;
 
   return <CurrentWeather>{currentForecast}</CurrentWeather>;
 };
