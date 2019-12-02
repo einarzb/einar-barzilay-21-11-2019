@@ -1,6 +1,6 @@
 import { API_KEY, DAY_OR_NIGHT } from "../actions/index";
 
-let apiKey = "2VRaPbrFLPm1y8Fbru9fBTTMfPGHdQdy";
+let apiKey = "80x1ulStWHNPc2rtBbyHy1kzrFuSSES7";
 
 const dayOrNight = () => {
   let hr = new Date().getHours();

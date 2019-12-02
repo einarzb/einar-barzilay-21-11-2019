@@ -99,13 +99,14 @@ const Card = styled.div`
 const WeatherIcon = styled.img`
   width: 5rem;
   height: auto;
+  margin-top: 1rem;
 `;
 
 const WeatherCardsRow = styled.div`
   display: inline-flex;
   flex-direction: row;
   align-items: center;
-  width: 97%;
+  width: 87%;
   justify-content: space-between;
   margin-top: 1rem;
   @media (max-width: 768px) {
@@ -137,5 +138,6 @@ const DataRow = styled.div`
 `;
 
 const WeatherDescription = styled.span`
-  color: #ec9e09;
+  color: #f7b267;
+  margin-top: 0.5rem;
 `;

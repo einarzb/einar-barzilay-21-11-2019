@@ -92,7 +92,7 @@ class SearchCity extends Component {
               <div
                 style={{
                   fontSize: "18px",
-                  background: isHighlighted ? "lightGrey" : "black"
+                  background: isHighlighted ? "lightGrey" : "rgb(100, 186, 199)"
                 }}
                 key={item.Key}
               >

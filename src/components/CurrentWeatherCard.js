@@ -28,10 +28,16 @@ const CurrentWeatherCard = ({ cityKey, apiKey }) => {
     fetchCurrentWeatherApi(url);
 
     if (jsonData != "") {
+      console.log(jsonData);
+
       currentForecast = jsonData.map(function(item, i) {
         return (
           <Card key={i}>
-            <WeatherDescription>{item.WeatherText}</WeatherDescription>
+            <Main>
+              <Intro>IT IS </Intro>
+              <WeatherDescription>{item.WeatherText}</WeatherDescription>
+            </Main>
+
             <WeatherIcon
               src={
                 "https://www.accuweather.com/images/weathericons/" +
@@ -49,6 +55,8 @@ const CurrentWeatherCard = ({ cityKey, apiKey }) => {
                 <sup>{item.Temperature.Imperial.Unit}</sup>
               </Temp>
             </DataRow>
+            <span>Feels like {item.ApparentTemperature.Metric.Value}</span>
+            <span>Humidity {item.RelativeHumidity}%</span>
           </Card>
         );
       });
@@ -61,14 +69,14 @@ const CurrentWeatherCard = ({ cityKey, apiKey }) => {
 export default CurrentWeatherCard;
 
 const Card = styled.div`
-  background-image: url("https://live.staticflickr.com/8730/28527438302_4f5cd0ed97_n.jpg");
+  /*background-image: url("https://live.staticflickr.com/8730/28527438302_4f5cd0ed97_n.jpg");*/
   background-color: rgba(0, 0, 0, 0.3);
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.6;
+  /*opacity: 0.6;*/
   background-size: cover;
   color: #ffffff;
-  width: 50%;
+  width: 40%;
   height: 300px;
   display: inline-flex;
   flex-direction: column;
@@ -114,12 +122,29 @@ const Temp = styled.span`
 const DataRow = styled.div`
   display: inline-flex;
   flex-direction: row;
-  width: 60%;
   justify-content: space-between;
   margin-top: 0.3rem;
   padding: 8px;
+  align-items: center;
+  width: 100px;
 `;
 
 const WeatherDescription = styled.span`
-  color: #ec9e09;
+  color: #ffffff;
+  font-size: 5rem;
+`;
+
+const Intro = styled.span`
+  width: 20px;
+  height: auto;
+  font-size: 1.3rem;
+  line-height: 1;
+  margin-top: 2.3rem;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+`;
+
+const Main = styled.div`
+  display: inline-flex;
+  flex-direction: row;
 `;
