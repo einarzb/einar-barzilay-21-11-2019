@@ -8,7 +8,10 @@ const toggleTempType = temp => {
 const DateParser = date => {
   let str = date.date;
   let res = str.slice(5, 10);
-  date = res;
+  let swap = res.replace("-", "/");
+
+  date = swap;
+
   return date;
 };
 
