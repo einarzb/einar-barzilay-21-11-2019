@@ -9,7 +9,7 @@ import { MOON, SUNRISE } from "../assets/index";
 import { placeholder } from "@babel/types";
 
 const API_URL =
-  "http://dataservice.accuweather.com/locations/v1/cities/autocomplete";
+  "https://dataservice.accuweather.com/locations/v1/cities/autocomplete";
 
 class SearchCity extends Component {
   state = {

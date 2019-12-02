@@ -9,7 +9,7 @@ const DateParser = date => {
   let str = date.date;
   let res = str.slice(5, 10);
   date = res;
-  return res;
+  return date;
 };
 
 let jsonData = "";
@@ -30,7 +30,7 @@ const DailyWeatherCard = ({ cityKey, apiKey, convertedTemp }) => {
   if (cityKey == "") {
   } else {
     url =
-      "http://dataservice.accuweather.com/forecasts/v1/daily/5day/" +
+      "https://dataservice.accuweather.com/forecasts/v1/daily/5day/" +
       cityKey +
       "?apikey=" +
       apiKey +
