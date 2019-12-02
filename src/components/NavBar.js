@@ -3,14 +3,30 @@ import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
+const dayOrNight = () => {
+  let hr = new Date().getHours();
+  const isDayTime = hr > 6 && hr < 19;
+  return isDayTime;
+};
+
 class NavBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isDayTime: dayOrNight()
+    };
   }
   render() {
+    let { isDayTime } = this.state;
+
     return (
-      <Bar>
+      <Bar
+        style={
+          isDayTime
+            ? { backgroundColor: "#F7B267" }
+            : { backgroundColor: "rgb(209, 168, 16)" }
+        }
+      >
         <NavUl>
           <Tab>
             <Link to="/">HOME</Link>
@@ -83,3 +99,5 @@ const Bar = styled.nav`
   max-height: 55px;
   width: 100%;
 `;
+
+//#F7B267

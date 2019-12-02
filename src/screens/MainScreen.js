@@ -16,15 +16,14 @@ class MainScreen extends React.Component {
   };
   render() {
     let { isDayTime } = this.state;
-    console.log(isDayTime);
 
     return (
       <Fragment>
         <Wrapper
           style={
             isDayTime
-              ? { backgroundColor: "#70a2b3" }
-              : { backgroundColor: "#222831" }
+              ? { backgroundColor: "#009FB7" }
+              : { backgroundColor: "#16001E" }
           }
         >
           <SearchCity />

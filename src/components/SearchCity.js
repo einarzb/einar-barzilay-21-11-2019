@@ -5,6 +5,7 @@ import axios from "axios";
 import styled from "styled-components";
 import Autocomplete from "react-autocomplete";
 import { cityKeyAction, cityNameAction } from "../redux/actions/index.js";
+import { MOON, SUNRISE } from "../assets/index";
 
 const API_URL =
   "http://dataservice.accuweather.com/locations/v1/cities/autocomplete";
@@ -79,8 +80,11 @@ class SearchCity extends Component {
     return (
       <Fragment>
         <Greetings>
-          {" "}
-          {isDayTime ? "Good Morning" : "Good Night"} {cityName}!
+          <img
+            src={isDayTime ? SUNRISE : MOON}
+            style={{ marginRight: "1rem", width: "27px" }}
+          />
+          {isDayTime ? "Good Morning" : "Good Night"} {cityName}!{" "}
         </Greetings>
 
         <SearchBar>
@@ -101,6 +105,17 @@ class SearchCity extends Component {
             value={query}
             onChange={this.changeValue}
             onSelect={this.selectedValue}
+            menuStyle={{
+              borderRadius: "3px",
+              boxShadow: "0 2px 12px rgba(0, 0, 0, 0.1)",
+              backgroundColor: "rgb(0, 0, 0)",
+              padding: "0",
+              fontSize: "90%",
+              position: "fixed",
+              overflow: "auto",
+              maxHeight: "50%",
+              zIndex: "99999"
+            }}
           />
         </SearchBar>
       </Fragment>
@@ -162,6 +177,6 @@ const Greetings = styled.span`
   display: inline-block;
   font-size: 1.7rem;
   color: #ffffff;
-  margin-top: 1rem;
+  line-height: 3;
   text-align: center;
 `;
