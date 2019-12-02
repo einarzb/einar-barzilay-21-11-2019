@@ -21,3 +21,11 @@ export const apiKeyAction = data => ({
     data
   }
 });
+
+export const DAY_OR_NIGHT = "DAY_OR_NIGHT";
+export const mainThemeAction = data => ({
+  type: DAY_OR_NIGHT,
+  data: {
+    data
+  }
+});

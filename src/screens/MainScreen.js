@@ -1,18 +1,14 @@
 import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+
 import styled from "styled-components";
 import DailyWeather from "../components/DailyWeather";
 import CurrentWeather from "../components/CurrentWeather";
 import SearchCity from "../components/SearchCity";
 
-const dayOrNight = () => {
-  let hr = new Date().getHours();
-  const isDayTime = hr > 6 && hr < 19;
-  return isDayTime;
-};
-
 class MainScreen extends React.Component {
   state = {
-    isDayTime: dayOrNight()
+    isDayTime: this.props.dayOrNight
   };
   render() {
     let { isDayTime } = this.state;
@@ -34,8 +30,15 @@ class MainScreen extends React.Component {
     );
   }
 }
+const mapStateToProps = state => {
+  let props = {
+    dayOrNight: state.apiReducer.dayOrNight
+  };
 
-export default MainScreen;
+  return props;
+};
+
+export default connect(mapStateToProps, null)(MainScreen);
 
 const Wrapper = styled.div`
   background-color: #222831;

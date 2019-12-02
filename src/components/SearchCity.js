@@ -6,15 +6,11 @@ import styled from "styled-components";
 import Autocomplete from "react-autocomplete";
 import { cityKeyAction, cityNameAction } from "../redux/actions/index.js";
 import { MOON, SUNRISE } from "../assets/index";
+import { placeholder } from "@babel/types";
 
 const API_URL =
   "http://dataservice.accuweather.com/locations/v1/cities/autocomplete";
 
-const dayOrNight = () => {
-  let hr = new Date().getHours();
-  const isDayTime = hr > 6 && hr < 19;
-  return isDayTime;
-};
 class SearchCity extends Component {
   state = {
     query: "",
@@ -22,7 +18,7 @@ class SearchCity extends Component {
     selectedCity: "",
     cityKey: "",
     apiKey: this.props.apiKey,
-    isDayTime: dayOrNight()
+    isDayTime: this.props.dayOrNight
   };
 
   fetchMeCities = () => {
@@ -89,6 +85,7 @@ class SearchCity extends Component {
 
         <SearchBar>
           <Autocomplete
+            inputProps={{ placeholder: "Type Here" }}
             getItemValue={item => item.LocalizedName}
             items={results}
             renderItem={(item, isHighlighted) => (
@@ -127,7 +124,8 @@ const mapStateToProps = state => {
   let props = {
     cityName: state.cityReducer.cityName,
     cityKey: state.cityReducer.cityKey,
-    apiKey: state.apiReducer.apiKey
+    apiKey: state.apiReducer.apiKey,
+    dayOrNight: state.apiReducer.dayOrNight
   };
 
   return props;
@@ -141,7 +139,7 @@ const mapDispatchToProps = dispatch => ({
 export default connect(mapStateToProps, mapDispatchToProps)(SearchCity);
 
 const SearchBar = styled.div`
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   width: 600px;
   background-color: rgba(255, 255, 255, 0.1);
   height: 50px;
@@ -162,7 +160,7 @@ const SearchBar = styled.div`
       focus: none;
       outline: none;
       color: #ffffff;
-      font-size: 1.7rem;
+      font-size: 1.3rem;
       height: 40px;
       background-color: transparent;
       width: 85%;

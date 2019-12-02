@@ -1,21 +1,15 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import { Link } from "react-router-dom";
 
 import styled from "styled-components";
 
-const dayOrNight = () => {
-  let hr = new Date().getHours();
-  const isDayTime = hr > 6 && hr < 19;
-  return isDayTime;
-};
-
 class NavBar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isDayTime: dayOrNight()
-    };
-  }
+  state = {
+    isDayTime: this.props.dayOrNight
+  };
+
   render() {
     let { isDayTime } = this.state;
 
@@ -39,8 +33,15 @@ class NavBar extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  let props = {
+    dayOrNight: state.apiReducer.dayOrNight
+  };
 
-export default NavBar;
+  return props;
+};
+
+export default connect(mapStateToProps, null)(NavBar);
 
 const NavUl = styled.ul`
   padding: 5px;
