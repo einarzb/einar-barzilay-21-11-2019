@@ -1,6 +1,6 @@
 import { API_KEY } from "../actions/index";
 
-let apiKey = "IkqVy0KU1avP37tZObvY7gYCwk8TWhH2";
+let apiKey = "2VRaPbrFLPm1y8Fbru9fBTTMfPGHdQdy";
 
 const initState = {
   apiKey: apiKey

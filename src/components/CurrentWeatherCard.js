@@ -61,7 +61,12 @@ const CurrentWeatherCard = ({ cityKey, apiKey }) => {
 export default CurrentWeatherCard;
 
 const Card = styled.div`
+  background-image: url("https://live.staticflickr.com/8730/28527438302_4f5cd0ed97_n.jpg");
   background-color: rgba(0, 0, 0, 0.3);
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.6;
+  background-size: cover;
   color: #ffffff;
   width: 50%;
   height: 300px;
@@ -71,7 +76,7 @@ const Card = styled.div`
   border-radius: 0.5em;
   padding: 0.5rem;
   @media (max-width: 768px) {
-    width: 85%;
+    width: 81%;
     margin: 0;
     height: auto;
   }

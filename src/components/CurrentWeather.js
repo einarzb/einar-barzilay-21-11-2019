@@ -24,7 +24,6 @@ class CurrentWeather extends Component {
           <div> loading....</div>
         ) : (
           <Wrapper>
-            <h2>{cityName}</h2>
             <CurrentWeatherCard
               cityKey={cityKey}
               apiKey={apiKey}

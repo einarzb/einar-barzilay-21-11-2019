@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 
 import axios from "axios";
@@ -9,13 +9,19 @@ import { cityKeyAction, cityNameAction } from "../redux/actions/index.js";
 const API_URL =
   "http://dataservice.accuweather.com/locations/v1/cities/autocomplete";
 
+const dayOrNight = () => {
+  let hr = new Date().getHours();
+  const isDayTime = hr > 6 && hr < 19;
+  return isDayTime;
+};
 class SearchCity extends Component {
   state = {
     query: "",
     results: [],
     selectedCity: "",
     cityKey: "",
-    apiKey: this.props.apiKey
+    apiKey: this.props.apiKey,
+    isDayTime: dayOrNight()
   };
 
   fetchMeCities = () => {
@@ -68,28 +74,36 @@ class SearchCity extends Component {
   };
 
   render() {
-    let { query, results } = this.state;
+    let { query, results, isDayTime } = this.state;
+    let { cityName } = this.props;
     return (
-      <SearchBar>
-        <Autocomplete
-          getItemValue={item => item.LocalizedName}
-          items={results}
-          renderItem={(item, isHighlighted) => (
-            <div
-              style={{
-                fontSize: "18px",
-                background: isHighlighted ? "lightGrey" : "black"
-              }}
-              key={item.Key}
-            >
-              {item.LocalizedName}
-            </div>
-          )}
-          value={query}
-          onChange={this.changeValue}
-          onSelect={this.selectedValue}
-        />
-      </SearchBar>
+      <Fragment>
+        <Greetings>
+          {" "}
+          {isDayTime ? "Good Morning" : "Good Night"} {cityName}!
+        </Greetings>
+
+        <SearchBar>
+          <Autocomplete
+            getItemValue={item => item.LocalizedName}
+            items={results}
+            renderItem={(item, isHighlighted) => (
+              <div
+                style={{
+                  fontSize: "18px",
+                  background: isHighlighted ? "lightGrey" : "black"
+                }}
+                key={item.Key}
+              >
+                {item.LocalizedName}
+              </div>
+            )}
+            value={query}
+            onChange={this.changeValue}
+            onSelect={this.selectedValue}
+          />
+        </SearchBar>
+      </Fragment>
     );
   }
 }
@@ -121,6 +135,9 @@ const SearchBar = styled.div`
   margin: 1rem auto 0;
   color: #ffffff;
   padding: 0px 0rem 0 1rem;
+  @media (max-width: 768px) {
+    width: 80%;
+  }
   & div {
     border: none;
     width: inherit;
@@ -134,6 +151,17 @@ const SearchBar = styled.div`
       height: 40px;
       background-color: transparent;
       width: 85%;
+      @media (max-width: 768px) {
+        width: 100%;
+      }
     }
   }
+`;
+
+const Greetings = styled.span`
+  display: inline-block;
+  font-size: 1.7rem;
+  color: #ffffff;
+  margin-top: 1rem;
+  text-align: center;
 `;

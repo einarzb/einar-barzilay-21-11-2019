@@ -55,11 +55,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(DailyWeather);
 export const Wrapper = styled.div`
   padding: 0 1rem;
   margin-left: 2rem;
+
   & h2 {
     color: #ffffff;
     margin-bottom: 0;
   }
   @media (max-width: 768px) {
-    margin-left: 1rem;
+    padding: 0;
+    margin: 0px auto;
+    width: 90%;
+    display: block;
+    background-color: #222831;
   }
 `;
