@@ -6,17 +6,13 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 class NavBar extends Component {
-  state = {
-    isDayTime: this.props.dayOrNight
-  };
-
   render() {
-    let { isDayTime } = this.state;
+    let { cityTheme } = this.props;
 
     return (
       <Bar
         style={
-          isDayTime
+          cityTheme
             ? { backgroundColor: "#F7B267" }
             : { backgroundColor: "rgb(209, 168, 16)" }
         }
@@ -35,7 +31,7 @@ class NavBar extends Component {
 }
 const mapStateToProps = state => {
   let props = {
-    dayOrNight: state.apiReducer.dayOrNight
+    cityTheme: state.cityReducer.cityTheme
   };
 
   return props;

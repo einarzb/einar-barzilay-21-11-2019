@@ -22,9 +22,17 @@ export const apiKeyAction = data => ({
   }
 });
 
-export const DAY_OR_NIGHT = "DAY_OR_NIGHT";
+export const FETCH_CITY_DATA = "FETCH_CITY_DATA";
 export const mainThemeAction = data => ({
-  type: DAY_OR_NIGHT,
+  type: FETCH_CITY_DATA,
+  data: {
+    data
+  }
+});
+
+export const UPDATE_FAVORITES = "UPDATE_FAVORITES";
+export const updateFavoriteAction = data => ({
+  type: UPDATE_FAVORITES,
   data: {
     data
   }

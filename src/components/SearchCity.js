@@ -4,7 +4,11 @@ import { connect } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 import Autocomplete from "react-autocomplete";
-import { cityKeyAction, cityNameAction } from "../redux/actions/index.js";
+import {
+  cityKeyAction,
+  cityNameAction,
+  mainThemeAction
+} from "../redux/actions/index.js";
 import { MOON, SUNRISE } from "../assets/index";
 import { placeholder } from "@babel/types";
 
@@ -14,19 +18,21 @@ const API_URL =
 class SearchCity extends Component {
   state = {
     query: "",
-    results: [],
+    cities: [],
     selectedCity: "",
-    cityKey: "",
     apiKey: this.props.apiKey,
-    isDayTime: this.props.dayOrNight
+    cityKey: this.props.cityKey,
+    cityData: this.props.cityData
   };
 
   fetchMeCities = () => {
+    console.log("hola a search has been called and i eill seatch ");
+
     axios
-      .get(`${API_URL}?apikey=${this.state.apiKey}&q=${this.state.query}`)
+      .get(`${API_URL}?apikey=${this.props.apiKey}&q=${this.state.query}`)
       .then(({ data }) => {
         this.setState({
-          results: data
+          cities: data
         });
       });
   };
@@ -53,8 +59,12 @@ class SearchCity extends Component {
     });
 
     let { cityNameRedux } = this.props;
-    this.matchKey(val, this.state.results);
+    this.matchKey(val, this.state.cities);
     cityNameRedux(val);
+    //it takes some time so build a buffer
+    setTimeout(() => {
+      this.buildUrl();
+    }, 500);
   };
 
   matchKey = (val, res) => {
@@ -70,24 +80,50 @@ class SearchCity extends Component {
     }
   };
 
+  buildUrl = () => {
+    let url =
+      `https://dataservice.accuweather.com/currentconditions/v1/` +
+      this.props.cityKey +
+      `?apikey=` +
+      this.props.apiKey +
+      `&details=true`;
+
+    this.fetchCurrentWeatherApi(url);
+  };
+
+  fetchCurrentWeatherApi = url => {
+    let jsonData = "";
+    let { cityRedux } = this.props;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(function(json) {
+        jsonData = json;
+        console.log(jsonData);
+
+        cityRedux(jsonData);
+      })
+      .catch(err => console.log(err));
+  };
+
   render() {
-    let { query, results, isDayTime } = this.state;
-    let { cityName } = this.props;
+    let { query, cities } = this.state;
+    let { cityName, cityTheme } = this.props;
     return (
       <Fragment>
         <Greetings>
           <img
-            src={isDayTime ? SUNRISE : MOON}
+            src={cityTheme ? SUNRISE : MOON}
             style={{ marginRight: "1rem", width: "27px" }}
           />
-          {isDayTime ? "Good Morning" : "Good Night"} {cityName}!{" "}
+          {cityTheme ? "Good Morning" : "Good Evening"} {cityName}!{" "}
         </Greetings>
 
         <SearchBar>
           <Autocomplete
             inputProps={{ placeholder: "Type Here" }}
             getItemValue={item => item.LocalizedName}
-            items={results}
+            items={cities}
             renderItem={(item, isHighlighted) => (
               <div
                 style={{
@@ -125,15 +161,19 @@ const mapStateToProps = state => {
     cityName: state.cityReducer.cityName,
     cityKey: state.cityReducer.cityKey,
     apiKey: state.apiReducer.apiKey,
-    dayOrNight: state.apiReducer.dayOrNight
+    cityData: state.cityReducer.cityData,
+    cityTheme: state.cityReducer.cityTheme
   };
+  console.log("search props");
+  console.log(props);
 
   return props;
 };
 
 const mapDispatchToProps = dispatch => ({
   cityKeyRedux: cityKey => dispatch(cityKeyAction(cityKey)),
-  cityNameRedux: cityName => dispatch(cityNameAction(cityName))
+  cityNameRedux: cityName => dispatch(cityNameAction(cityName)),
+  cityRedux: cityData => dispatch(mainThemeAction(cityData))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchCity);

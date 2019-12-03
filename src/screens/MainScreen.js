@@ -7,17 +7,14 @@ import CurrentWeather from "../components/CurrentWeather";
 import SearchCity from "../components/SearchCity";
 
 class MainScreen extends React.Component {
-  state = {
-    isDayTime: this.props.dayOrNight
-  };
   render() {
-    let { isDayTime } = this.state;
+    let { cityTheme } = this.props;
 
     return (
       <Fragment>
         <Wrapper
           style={
-            isDayTime
+            cityTheme
               ? { backgroundColor: "#009FB7" }
               : { backgroundColor: "#16001E" }
           }
@@ -32,7 +29,7 @@ class MainScreen extends React.Component {
 }
 const mapStateToProps = state => {
   let props = {
-    dayOrNight: state.apiReducer.dayOrNight
+    cityTheme: state.cityReducer.cityTheme
   };
 
   return props;

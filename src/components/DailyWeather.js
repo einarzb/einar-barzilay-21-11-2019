@@ -9,7 +9,6 @@ import styled from "styled-components";
 class DailyWeather extends Component {
   state = {
     loading: false,
-    weather: null,
     apiKey: this.props.apiKey,
     cityKey: this.props.cityKey
   };
@@ -42,6 +41,8 @@ const mapStateToProps = state => {
     cityKey: state.cityReducer.cityKey,
     apiKey: state.apiReducer.apiKey
   };
+  // console.log("yo");
+  // console.log(props);
 
   return props;
 };

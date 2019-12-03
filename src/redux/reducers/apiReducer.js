@@ -1,26 +1,15 @@
-import { API_KEY, DAY_OR_NIGHT } from "../actions/index";
+import { API_KEY } from "../actions/index";
 
-let apiKey = "k72nklUGxDZEORHBxWPJxEIxEtuDCKEE";
-
-const dayOrNight = () => {
-  let hr = new Date().getHours();
-  const isDayTime = hr > 6 && hr < 19;
-  return isDayTime;
-};
+let apiKey = "AjdC0LSBo2hv9YijaCEgQgGceuGTBkIe";
 
 const initState = {
-  apiKey: apiKey,
-  dayOrNight: dayOrNight()
+  apiKey: apiKey
 };
-
-console.log(initState);
 
 const apiReducer = (state = initState, action) => {
   switch (action.type) {
     case API_KEY:
       return passApiKey();
-    case DAY_OR_NIGHT:
-      return passTheme();
     default:
       return state;
   }
@@ -31,8 +20,4 @@ function passApiKey() {
   return { ...initState };
 }
 
-function passTheme() {
-  initState.dayOrNight = initState.dayOrNight;
-  return { ...initState };
-}
 export default apiReducer;

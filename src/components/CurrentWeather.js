@@ -9,15 +9,26 @@ import styled from "styled-components";
 class CurrentWeather extends Component {
   state = {
     loading: false,
-    curWeather: null,
     apiKey: this.props.apiKey,
-    cityKey: this.props.cityKey
+    cityKey: this.props.cityKey,
+    cityData: this.props.cityData
   };
+
+  componentDidMount() {
+    if (this.props.cityKey) {
+      console.log("yo I do have city key");
+
+      //  this.buildUrl();
+    } else {
+      console.log("fuck i dont have cityKey");
+    }
+  }
 
   render() {
     let { loading } = this.state;
-    let { cityName, cityKey, apiKey } = this.props;
-
+    let { cityData, cityName } = this.props;
+    //console.log("im einar");
+    //console.log(cityData);
     return (
       <Fragment>
         {loading ? (
@@ -25,8 +36,8 @@ class CurrentWeather extends Component {
         ) : (
           <Wrapper>
             <CurrentWeatherCard
-              cityKey={cityKey}
-              apiKey={apiKey}
+              cityData={cityData}
+              cityName={cityName}
             ></CurrentWeatherCard>
           </Wrapper>
         )}
@@ -38,8 +49,11 @@ const mapStateToProps = state => {
   let props = {
     cityName: state.cityReducer.cityName,
     cityKey: state.cityReducer.cityKey,
-    apiKey: state.apiReducer.apiKey
+    apiKey: state.apiReducer.apiKey,
+    cityData: state.cityReducer.cityData
   };
+
+  console.log(props);
 
   return props;
 };

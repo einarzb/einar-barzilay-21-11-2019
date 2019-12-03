@@ -1,67 +1,52 @@
 import React from "react";
 import styled from "styled-components";
+//import { HEART } from "../assets/index";
 
-let jsonData = "";
+const CurrentWeatherCard = ({ cityData, cityName }) => {
+  // console.log("im lucky");
+  //console.log(cityData);
 
-const fetchCurrentWeatherApi = url => {
-  fetch(url)
-    .then(res => res.json())
-    .then(function(json) {
-      jsonData = json;
-    })
-    .catch(err => console.log(err));
-};
-
-const CurrentWeatherCard = ({ cityKey, apiKey }) => {
   let currentForecast = "";
 
-  let url = "";
+  currentForecast = cityData.map(function(item, i) {
+    return (
+      <Card key={i}>
+        <Main>
+          <Intro>IT IS </Intro>
+          <WeatherDescription>{item.WeatherText}</WeatherDescription>
+          <Intro>@</Intro>
+          <Intro>{cityName}</Intro>
+        </Main>
+        <Main></Main>
 
-  if (cityKey == "") {
-  } else {
-    url =
-      `https://dataservice.accuweather.com/currentconditions/v1/` +
-      cityKey +
-      `?apikey=` +
-      apiKey +
-      `&details=true`;
-    fetchCurrentWeatherApi(url);
-
-    if (jsonData != "") {
-      console.log(jsonData);
-
-      currentForecast = jsonData.map(function(item, i) {
-        return (
-          <Card key={i}>
-            <Main>
-              <Intro>IT IS </Intro>
-              <WeatherDescription>{item.WeatherText}</WeatherDescription>
-            </Main>
-
-            <WeatherIcon
-              src={
-                "https://www.accuweather.com/images/weathericons/" +
-                item.WeatherIcon +
-                ".svg"
-              }
-            />
-            <DataRow>
-              <Temp>
-                {item.Temperature.Metric.Value}
-                <sup>{item.Temperature.Metric.Unit}</sup>
-              </Temp>
-              <Temp>
-                {item.Temperature.Imperial.Value}
-                <sup>{item.Temperature.Imperial.Unit}</sup>
-              </Temp>
-            </DataRow>
-            <span>Feels like {item.ApparentTemperature.Metric.Value}</span>
-            <span>Humidity {item.RelativeHumidity}%</span>
-          </Card>
-        );
-      });
-    }
-  }
+        <WeatherIcon
+          src={
+            "https://www.accuweather.com/images/weathericons/" +
+            item.WeatherIcon +
+            ".svg"
+          }
+        />
+        <DataRow>
+          <Temp>
+            {item.Temperature.Metric.Value}
+            <sup>{item.Temperature.Metric.Unit}</sup>
+          </Temp>
+          <Temp>
+            {item.Temperature.Imperial.Value}
+            <sup>{item.Temperature.Imperial.Unit}</sup>
+          </Temp>
+        </DataRow>
+        <span>Feels like {item.ApparentTemperature.Metric.Value}</span>
+        <span>Humidity {item.RelativeHumidity}%</span>
+        {/** 
+            <FavoriteButton
+              src={HEART}
+              onClick={() => addToFavorites(cityKey)}
+            ></FavoriteButton>
+            */}
+      </Card>
+    );
+  });
 
   return <CurrentWeather>{currentForecast}</CurrentWeather>;
 };
@@ -131,15 +116,15 @@ const DataRow = styled.div`
 
 const WeatherDescription = styled.span`
   color: #ffffff;
-  font-size: 5rem;
+  font-size: 3rem;
 `;
 
 const Intro = styled.span`
-  width: 20px;
+  width: 40px;
   height: auto;
   font-size: 1.3rem;
   line-height: 1;
-  margin-top: 2.3rem;
+  margin-top: 1.3rem;
   margin-right: 0.5rem;
   margin-left: 0.5rem;
 `;
@@ -147,4 +132,8 @@ const Intro = styled.span`
 const Main = styled.div`
   display: inline-flex;
   flex-direction: row;
+`;
+
+const FavoriteButton = styled.img`
+  width: 20px;
 `;
