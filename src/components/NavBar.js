@@ -13,7 +13,7 @@ class NavBar extends Component {
       <Bar
         style={
           cityTheme
-            ? { backgroundColor: "#F7B267" }
+            ? { backgroundColor: "#f6a649" }
             : { backgroundColor: "rgb(209, 168, 16)" }
         }
       >

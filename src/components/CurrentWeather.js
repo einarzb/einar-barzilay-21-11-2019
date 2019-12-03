@@ -14,16 +14,6 @@ class CurrentWeather extends Component {
     cityData: this.props.cityData
   };
 
-  componentDidMount() {
-    if (this.props.cityKey) {
-      console.log("yo I do have city key");
-
-      //  this.buildUrl();
-    } else {
-      console.log("fuck i dont have cityKey");
-    }
-  }
-
   render() {
     let { loading } = this.state;
     let { cityData, cityName } = this.props;

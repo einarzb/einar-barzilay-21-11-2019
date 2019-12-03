@@ -7,7 +7,8 @@ import Autocomplete from "react-autocomplete";
 import {
   cityKeyAction,
   cityNameAction,
-  mainThemeAction
+  mainThemeAction,
+  updateWeeklyForecastAction
 } from "../redux/actions/index.js";
 import { MOON, SUNRISE } from "../assets/index";
 import { placeholder } from "@babel/types";
@@ -22,12 +23,11 @@ class SearchCity extends Component {
     selectedCity: "",
     apiKey: this.props.apiKey,
     cityKey: this.props.cityKey,
-    cityData: this.props.cityData
+    cityData: this.props.cityData,
+    weeklyForecast: this.props.weeklyForecast
   };
 
   fetchMeCities = () => {
-    console.log("hola a search has been called and i eill seatch ");
-
     axios
       .get(`${API_URL}?apikey=${this.props.apiKey}&q=${this.state.query}`)
       .then(({ data }) => {
@@ -63,7 +63,8 @@ class SearchCity extends Component {
     cityNameRedux(val);
     //it takes some time so build a buffer
     setTimeout(() => {
-      this.buildUrl();
+      this.buildUrlCurrentWeather();
+      this.buildUrlWeeklyForecast();
     }, 500);
   };
 
@@ -80,7 +81,20 @@ class SearchCity extends Component {
     }
   };
 
-  buildUrl = () => {
+  buildUrlWeeklyForecast = () => {
+    let url =
+      "https://dataservice.accuweather.com/forecasts/v1/daily/5day/" +
+      this.props.cityKey +
+      "?apikey=" +
+      this.props.apiKey +
+      "&details=true&metric=true";
+    console.log(url);
+    console.log("im url of weekly");
+
+    this.fetchWeeklyWeatherApi(url);
+  };
+
+  buildUrlCurrentWeather = () => {
     let url =
       `https://dataservice.accuweather.com/currentconditions/v1/` +
       this.props.cityKey +
@@ -89,6 +103,22 @@ class SearchCity extends Component {
       `&details=true`;
 
     this.fetchCurrentWeatherApi(url);
+  };
+
+  fetchWeeklyWeatherApi = url => {
+    let jsonData = "";
+    let { weeklyForecastRedux } = this.props;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(function(json) {
+        jsonData = json;
+        console.log("im weekly data");
+
+        console.log(jsonData.DailyForecasts);
+        weeklyForecastRedux(jsonData.DailyForecasts);
+      })
+      .catch(err => console.log(err));
   };
 
   fetchCurrentWeatherApi = url => {
@@ -162,7 +192,8 @@ const mapStateToProps = state => {
     cityKey: state.cityReducer.cityKey,
     apiKey: state.apiReducer.apiKey,
     cityData: state.cityReducer.cityData,
-    cityTheme: state.cityReducer.cityTheme
+    cityTheme: state.cityReducer.cityTheme,
+    weeklyForecast: state.cityReducer.weeklyForecast
   };
   console.log("search props");
   console.log(props);
@@ -173,7 +204,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   cityKeyRedux: cityKey => dispatch(cityKeyAction(cityKey)),
   cityNameRedux: cityName => dispatch(cityNameAction(cityName)),
-  cityRedux: cityData => dispatch(mainThemeAction(cityData))
+  cityRedux: cityData => dispatch(mainThemeAction(cityData)),
+  weeklyForecastRedux: weeklyForecast =>
+    dispatch(updateWeeklyForecastAction(weeklyForecast))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchCity);

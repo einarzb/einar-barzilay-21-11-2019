@@ -15,67 +15,38 @@ const DateParser = date => {
   return date;
 };
 
-let jsonData = "";
-
-const fetchDailyWeatherApi = url => {
-  fetch(url)
-    .then(res => res.json())
-    .then(function(json) {
-      jsonData = json;
-    })
-    .catch(err => console.log(err));
-};
-
-const DailyWeatherCard = ({ cityKey, apiKey, convertedTemp }) => {
+const DailyWeatherCard = ({ weeklyData, convertedTemp }) => {
   let dailyForecast = "";
-  let url = "";
 
-  if (cityKey == "") {
-  } else {
-    url =
-      "https://dataservice.accuweather.com/forecasts/v1/daily/5day/" +
-      cityKey +
-      "?apikey=" +
-      apiKey +
-      "&details=true&metric=true";
-    fetchDailyWeatherApi(url);
-
-    if (jsonData != "") {
-      dailyForecast = jsonData.DailyForecasts.map(function(item, i) {
-        return (
-          <Card key={i}>
-            <DateParser date={item.Date}></DateParser>
-            <WeatherDescription>{item.Day.IconPhrase}</WeatherDescription>
-            <WeatherIcon
-              src={
-                "https://www.accuweather.com/images/weathericons/" +
-                item.Day.Icon +
-                ".svg"
-              }
-            />
-            <DataRow>
-              <Temp
-                onClick={() => toggleTempType(item.Temperature.Maximum.Value)}
-              >
-                <div>Maximum</div>
-                {item.Temperature.Maximum.Value}
-                <sup>{item.Temperature.Maximum.Unit}</sup>
-                {convertedTemp}
-              </Temp>
-              <Temp
-                onClick={() => toggleTempType(item.Temperature.Minimum.Value)}
-              >
-                <div>Minimum</div>
-                {item.Temperature.Minimum.Value}
-                <sup>{item.Temperature.Minimum.Unit}</sup>
-                {convertedTemp}
-              </Temp>
-            </DataRow>
-          </Card>
-        );
-      });
-    }
-  }
+  dailyForecast = weeklyData.map(function(item, i) {
+    return (
+      <Card key={i}>
+        <DateParser date={item.Date}></DateParser>
+        <WeatherDescription>{item.Day.IconPhrase}</WeatherDescription>
+        <WeatherIcon
+          src={
+            "https://www.accuweather.com/images/weathericons/" +
+            item.Day.Icon +
+            ".svg"
+          }
+        />
+        <DataRow>
+          <Temp onClick={() => toggleTempType(item.Temperature.Maximum.Value)}>
+            <div>Maximum</div>
+            {item.Temperature.Maximum.Value}
+            <sup>{item.Temperature.Maximum.Unit}</sup>
+            {convertedTemp}
+          </Temp>
+          <Temp onClick={() => toggleTempType(item.Temperature.Minimum.Value)}>
+            <div>Minimum</div>
+            {item.Temperature.Minimum.Value}
+            <sup>{item.Temperature.Minimum.Unit}</sup>
+            {convertedTemp}
+          </Temp>
+        </DataRow>
+      </Card>
+    );
+  });
 
   return <WeatherCardsRow>{dailyForecast}</WeatherCardsRow>;
 };

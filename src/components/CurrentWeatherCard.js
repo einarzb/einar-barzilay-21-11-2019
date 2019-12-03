@@ -17,7 +17,6 @@ const CurrentWeatherCard = ({ cityData, cityName }) => {
           <Intro>@</Intro>
           <Intro>{cityName}</Intro>
         </Main>
-        <Main></Main>
 
         <WeatherIcon
           src={

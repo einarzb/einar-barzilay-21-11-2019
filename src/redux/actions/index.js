@@ -30,6 +30,14 @@ export const mainThemeAction = data => ({
   }
 });
 
+export const FETCH_WEEKLY_FORECAST = "FETCH_WEEKLY_FORECAST";
+export const updateWeeklyForecastAction = data => ({
+  type: FETCH_WEEKLY_FORECAST,
+  data: {
+    data
+  }
+});
+
 export const UPDATE_FAVORITES = "UPDATE_FAVORITES";
 export const updateFavoriteAction = data => ({
   type: UPDATE_FAVORITES,

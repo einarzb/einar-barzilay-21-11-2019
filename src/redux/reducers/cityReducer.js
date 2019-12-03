@@ -1,29 +1,33 @@
 import {
   CITY_KEY,
   CITY_NAME,
-  UPDATE_FAVORITES,
-  FETCH_CITY_DATA
+  // UPDATE_FAVORITES,
+  FETCH_CITY_DATA,
+  FETCH_WEEKLY_FORECAST
 } from "../actions/index";
 
 let cityKey = "";
 let cityName = "";
-let favorites = [];
+//let favorites = [];
 let cityData = [];
+let weeklyForecast = [];
 let cityTheme = "";
 
 const initState = {
   cityKey: cityKey,
   cityName: cityName,
   cityData: cityData,
-  cityTheme: cityTheme,
-  favorites: favorites
+  weeklyForecast: weeklyForecast,
+  cityTheme: cityTheme
+  //favorites: favorites
 };
-console.log(initState);
 
 const cityReducer = (state = initState, action) => {
   switch (action.type) {
     case FETCH_CITY_DATA:
       return fethedCityData(action.data);
+    case FETCH_WEEKLY_FORECAST:
+      return fethedWeeklyForecast(action.data);
     case CITY_KEY:
       return passCityKey(action.data);
     case CITY_NAME:
@@ -52,6 +56,15 @@ function fethedCityData(data) {
   return { ...initState };
 }
 
+function fethedWeeklyForecast(data) {
+  console.log(data.data);
+  console.log("stinky redicer");
+
+  initState.weeklyForecast = data.data;
+  console.log(initState);
+
+  return { ...initState };
+}
 /*
 function updateFavorites(data) {
   console.log("im data hello");

@@ -15,7 +15,7 @@ class MainScreen extends React.Component {
         <Wrapper
           style={
             cityTheme
-              ? { backgroundColor: "#009FB7" }
+              ? { backgroundColor: "rgb(62, 101, 160)" }
               : { backgroundColor: "#16001E" }
           }
         >
