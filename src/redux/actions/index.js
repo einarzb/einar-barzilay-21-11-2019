@@ -39,7 +39,7 @@ export const updateWeeklyForecastAction = data => ({
 });
 
 export const UPDATE_FAVORITES = "UPDATE_FAVORITES";
-export const updateFavoriteAction = data => ({
+export const pushToFavoritesAction = data => ({
   type: UPDATE_FAVORITES,
   data: {
     data

@@ -1,10 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-//import { HEART } from "../assets/index";
-
+import AddToFavorites from "../components/AddToFavorites";
 const CurrentWeatherCard = ({ cityData, cityName }) => {
   let currentForecast = "";
-
   currentForecast = cityData.map(function(item, i) {
     return (
       <Card key={i}>
@@ -34,12 +32,7 @@ const CurrentWeatherCard = ({ cityData, cityName }) => {
         </DataRow>
         <span>Feels like {item.ApparentTemperature.Metric.Value}</span>
         <span>Humidity {item.RelativeHumidity}%</span>
-        {/** 
-            <FavoriteButton
-              src={HEART}
-              onClick={() => addToFavorites(cityKey)}
-            ></FavoriteButton>
-            */}
+        <AddToFavorites />
       </Card>
     );
   });
@@ -128,8 +121,4 @@ const Intro = styled.span`
 const Main = styled.div`
   display: inline-flex;
   flex-direction: row;
-`;
-
-const FavoriteButton = styled.img`
-  width: 20px;
 `;
