@@ -1,23 +1,41 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
 
 class FavoritesScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  componentDidMount() {
-    this.props.history.listen(() => {
-      // view new URL
-      console.log("New URL", this.props.history.location.pathname);
-    });
-  }
   render() {
-    return <div>favorites</div>;
+    let { cityTheme } = this.props;
+
+    return (
+      <Fragment>
+        <Wrapper
+          style={
+            cityTheme
+              ? { backgroundColor: "rgb(62, 101, 160)" }
+              : { backgroundColor: "#16001E" }
+          }
+        ></Wrapper>
+      </Fragment>
+    );
   }
 }
 
-export default withRouter(FavoritesScreen);
+const mapStateToProps = state => {
+  let props = {
+    cityTheme: state.cityReducer.cityTheme
+  };
+
+  return props;
+};
+
+export default connect(mapStateToProps, null)(FavoritesScreen);
+
+const Wrapper = styled.div`
+  background-color: #222831;
+  margin-top: -1.1rem;
+  display: inline-flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+`;

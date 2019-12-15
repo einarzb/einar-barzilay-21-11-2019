@@ -14,11 +14,9 @@ class addToFavorites extends Component {
     cityKey: this.props.cityKey,
     favoriteCities: this.props.favoritesCities
   };
-  addToFavorites = cityKey => {
-    console.log(cityKey);
-    console.log("add me to fav");
-    let { pushToFavoritesRedux } = this.props;
 
+  addToFavorites = cityKey => {
+    let { pushToFavoritesRedux } = this.props;
     pushToFavoritesRedux(cityKey);
   };
 
