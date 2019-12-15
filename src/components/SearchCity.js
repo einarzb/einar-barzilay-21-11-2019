@@ -88,8 +88,6 @@ class SearchCity extends Component {
       "?apikey=" +
       this.props.apiKey +
       "&details=true&metric=true";
-    console.log(url);
-    console.log("im url of weekly");
 
     this.fetchWeeklyWeatherApi(url);
   };
@@ -105,6 +103,7 @@ class SearchCity extends Component {
     this.fetchCurrentWeatherApi(url);
   };
 
+  // I can probably refactor it
   fetchWeeklyWeatherApi = url => {
     let jsonData = "";
     let { weeklyForecastRedux } = this.props;
@@ -113,9 +112,7 @@ class SearchCity extends Component {
       .then(res => res.json())
       .then(function(json) {
         jsonData = json;
-        console.log("im weekly data");
 
-        console.log(jsonData.DailyForecasts);
         weeklyForecastRedux(jsonData.DailyForecasts);
       })
       .catch(err => console.log(err));

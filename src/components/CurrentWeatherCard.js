@@ -3,9 +3,6 @@ import styled from "styled-components";
 //import { HEART } from "../assets/index";
 
 const CurrentWeatherCard = ({ cityData, cityName }) => {
-  // console.log("im lucky");
-  //console.log(cityData);
-
   let currentForecast = "";
 
   currentForecast = cityData.map(function(item, i) {

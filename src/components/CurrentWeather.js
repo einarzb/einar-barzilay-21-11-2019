@@ -17,8 +17,7 @@ class CurrentWeather extends Component {
   render() {
     let { loading } = this.state;
     let { cityData, cityName } = this.props;
-    //console.log("im einar");
-    //console.log(cityData);
+
     return (
       <Fragment>
         {loading ? (
@@ -42,8 +41,6 @@ const mapStateToProps = state => {
     apiKey: state.apiReducer.apiKey,
     cityData: state.cityReducer.cityData
   };
-
-  console.log(props);
 
   return props;
 };

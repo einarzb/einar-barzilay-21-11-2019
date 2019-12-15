@@ -9,16 +9,12 @@ import styled from "styled-components";
 class DailyWeather extends Component {
   state = {
     loading: false,
-    apiKey: this.props.apiKey,
-    cityKey: this.props.cityKey,
     weeklyForecast: this.props.weeklyForecast
   };
 
   render() {
     let { loading } = this.state;
-    let { cityKey, apiKey, weeklyForecast } = this.props;
-    console.log("wow");
-    console.log(weeklyForecast);
+    let { weeklyForecast } = this.props;
 
     return (
       <Fragment>
@@ -38,12 +34,8 @@ class DailyWeather extends Component {
 
 const mapStateToProps = state => {
   let props = {
-    cityKey: state.cityReducer.cityKey,
-    apiKey: state.apiReducer.apiKey,
     weeklyForecast: state.cityReducer.weeklyForecast
   };
-  console.log("daily weather props");
-  console.log(props);
 
   return props;
 };
