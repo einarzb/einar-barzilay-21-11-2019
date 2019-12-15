@@ -1,14 +1,12 @@
 import {
   CITY_KEY,
   CITY_NAME,
-  // UPDATE_FAVORITES,
   FETCH_CITY_DATA,
   FETCH_WEEKLY_FORECAST
 } from "../actions/index";
 
 let cityKey = "";
 let cityName = "";
-//let favorites = [];
 let cityData = [];
 let weeklyForecast = [];
 let cityTheme = "";
@@ -19,7 +17,6 @@ const initState = {
   cityData: cityData,
   weeklyForecast: weeklyForecast,
   cityTheme: cityTheme
-  //favorites: favorites
 };
 
 const cityReducer = (state = initState, action) => {
@@ -32,10 +29,6 @@ const cityReducer = (state = initState, action) => {
       return passCityKey(action.data);
     case CITY_NAME:
       return passCityName(action.data);
-    /*
-    case UPDATE_FAVORITES:
-      return updateFavorites(action.data);
-      */
     default:
       return state;
   }
@@ -65,12 +58,5 @@ function fethedWeeklyForecast(data) {
 
   return { ...initState };
 }
-/*
-function updateFavorites(data) {
-  console.log("im data hello");
-  console.log(data);
-  initState.favorites = data.data;
-  return { ...initState };
-}
-*/
+
 export default cityReducer;
